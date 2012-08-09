@@ -22,18 +22,26 @@ AppOSS作为一个运维自动化平台，主要包括两个部分：Center 和 
 	git clone git@github.com:taobao/apposs-center.git   
 	cd apposs-center
 
-根据样例，修改数据库配置  
+安装相关gem
 
-	cp config/database.yml.sample config/database.yml # add db user and modify this file laster
+	bundle install  
 
-根据样例，修改 google oauth 的 client id 和 client secret（应用地址缺省是 http://localhost:3000, callback 地址缺省是 http://localhost:3000/auth/google\_oauth2/callback）   
+执行安装任务
 
-	cp config/initializers/omniauth.rb.example config/initializers/omniauth.rb # modify it later  
+	rake install:data
+
+	# rake任务内容：
+	# 	1.根据样例，修改数据库配置  
+	# 		config/database.yml.example -> config/database.yml
+	# 	2.根据用户输入，设定 google oauth 的 client id 和 client secret
+	# 	（应用地址缺省是 http://localhost:3000, callback 地址缺省是 http://localhost:3000/auth/google_oauth2/callback）   
+	#  		config/initializers/omniauth.rb.example -> config/initializers/omniauth.rb
+	#	3.准备初始化数据
+	#		db/fixtures/*.rb.example -> db/fixtures/*.rb
 
 其它准备
 
 	mkdir log  
-	bundle install  
 	rake db:create db:migrate   
 
 启动  

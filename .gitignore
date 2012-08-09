@@ -15,6 +15,7 @@ coverage/
 db/schema.rb
 db/fixtures/02-users.rb
 db/fixtures/03-agents.rb
+db/fixtures/04-apps.rb
 nbproject
 vendor/cache/*
 vendor/bundle
