@@ -2,6 +2,7 @@
 Apposs::Application.routes.draw do
 
   mount AppossFile::Engine => "/apposs_file"
+  match '/auth/:provider/callback' => 'home#callback'
 
   root :to => 'apps#index'
 

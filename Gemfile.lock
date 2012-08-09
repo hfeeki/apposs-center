@@ -304,6 +304,7 @@ DEPENDENCIES
   jquery-rails
   json
   mysql2
+  omniauth-google-oauth2
   pry
   pry-doc
   pry-nav

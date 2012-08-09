@@ -82,4 +82,5 @@ gem 'therubyracer'
 gem "json"
 gem "state_machine"
 gem "acts_as_tree"
+gem "omniauth-google-oauth2"
 gem "will_paginate", "~> 3.0.pre4"

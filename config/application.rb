@@ -57,6 +57,6 @@ module Apposs
     config.filter_parameters += [:password]
     ActiveRecord::Base.include_root_in_json = false
     config.logger = Logger.new(config.paths['log'].first,'daily')
-    config.adapter = AppossTbAdapter
+    config.adapter = AppossSimpleAdapter
   end
 end
