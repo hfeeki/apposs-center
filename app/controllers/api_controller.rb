@@ -2,10 +2,6 @@ class ApiController < ApplicationController
   before_filter :check_agent
 
   def check_agent
-    remote_addr = 
-      env['HTTP_X_FORWARDED_FOR'] || 
-      env['HTTP_X_REAL_IP'] || 
-      env['REMOTE_ADDR']
     Rails.logger.info "api access: #{remote_addr}"
     agent = Agent.find_by_ipaddr remote_addr
     
@@ -88,4 +84,11 @@ class ApiController < ApplicationController
       render :status => 404, :text => ''
     end
   end
+
+  private
+  def remote_addr
+    @remote_addr ||= (env['HTTP_X_FORWARDED_FOR'] || 
+                      env['HTTP_X_REAL_IP'] || 
+                      env['REMOTE_ADDR'])
+  end 
 end

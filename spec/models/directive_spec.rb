@@ -42,6 +42,10 @@ describe Directive do
       directive.machine.state.should == 'paused'
       directive.ack
       directive.state.should == 'done'
+      directive.isok.tap do |result|
+        result.should_not be_nil
+        result.should be_false
+      end
     end
   end
   
@@ -86,6 +90,10 @@ describe Directive do
         state.should == 'failure'
       @o.directives.each do |directive|
         directive.ack
+        directive.isok.tap do |result|
+          result.should_not be_nil
+          result.should be_false
+        end
         directive.state.should == 'done'
       end
       @o.reload. # 同上
