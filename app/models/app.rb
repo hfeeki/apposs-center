@@ -79,6 +79,14 @@ class App < ActiveRecord::Base
     return directive_template,operation_template
   end
 
+  def public_folder
+    "/public/data/#{id}"
+  end
+
+  def private_folder
+    "/private/data/#{id}"
+  end
+
   def add_default_property
     properties[:app_id, self.id] = true
   end
