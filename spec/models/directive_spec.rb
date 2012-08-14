@@ -14,6 +14,7 @@ describe Directive do
         :template => DirectiveTemplate.first
       )
       directive.command_name.should == 'echo value1 value2 $ param1 $param1'
+      directive.command.should == 'echo value1 value2 $ param1 $param1'
       directive.template.should_not be_nil
     end
     

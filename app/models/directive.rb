@@ -25,6 +25,15 @@ class Directive < ActiveRecord::Base
     end
   end
 
+  #TODO  未来将迁移 command_name 字段，改为 command
+  def command
+    self.command_name
+  end
+
+  def command= value
+    self.command_name = value
+  end
+
   # 反馈执行结果
   def callback( isok, body)
     self.isok = isok
