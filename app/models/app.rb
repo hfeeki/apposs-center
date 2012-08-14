@@ -80,11 +80,15 @@ class App < ActiveRecord::Base
   end
 
   def public_folder
-    "/public/data/#{id}"
+    "#{Rails.root}/public/data/#{id}"
   end
 
   def private_folder
-    "/private/data/#{id}"
+    "#{Rails.root}/private/data/#{id}"
+  end
+
+  def download_folder
+    "#{Rails.configuration.base_url}/data/#{id}"
   end
 
   def add_default_property
