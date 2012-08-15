@@ -149,18 +149,10 @@ $(function() {
     
     if(form){
       if(node.attr('prompt')){
-        var value = '';
-        while(value==''){
-          value = '';
-          value = window.prompt(node.attr('prompt'));
-          if( value == undefined ){
-            return application.stopEverything(e);
-          }
-          if( value == '' ){
-            alert('输入内容不能为空');
-          }else{
-            break;
-          }
+        var value = window.prompt(node.attr('prompt'));
+        if( value == undefined || value == "" || value == null ){
+          if(value == '') alert('输入内容不能为空');
+          return application.stopEverything(e);
         }
         form.data.value = value;
       }
