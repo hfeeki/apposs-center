@@ -73,6 +73,7 @@ gem "inherited_resources_views"
 gem "inherited_resources"
 
 gem "jquery-rails"
+gem "jquery-ui-rails"
 gem 'rails3-jquery-autocomplete'
 gem 'acts-as-taggable-on'
 

@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.sortable
 //= require autocomplete-rails
 //= require twitter/bootstrap
 //= require rails_ext
