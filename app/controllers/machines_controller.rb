@@ -14,9 +14,8 @@ class MachinesController < ResourceController
     end
   end
   
-  #TODO 没有检查machine是否属于当前用户
   def change_env
-    @machine = Machine.find(params[:id])
+    @machine = current_app.machines.find(params[:id])
     env_obj = @machine.app.envs.find params['env_id']
     @machine.update_attribute :env, env_obj
   end
