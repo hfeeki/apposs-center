@@ -1,3 +1,17 @@
 # encoding:utf-8
-App.seed(:name){ |app| app.name = '我的应用' }
+
+#以下数据用于示例，请根据需要修改后执行 rake db:seed_fu
+# Room.seed(:name, { :name => 'local' })
+# room = Room.find_by_name 'local'
+# Machine.seed(:name,{ 
+#   :name => 'localhost', :host => 'localhost', :port => 22, :adapter => 'ssh', :room_id => room.id 
+# })
+# App.seed(:name){ |app| app.name = '我的应用' }
+#
+# 示例：绑定用户、应用和机器的关系
+# app = App.find_by_name '我的应用'
+# machine = Machine.find_by_name 'localhost'
+# user = Role[Role::Admin].users.first
+# user.grant Role::PE, app
+# machine.reassign app
 
