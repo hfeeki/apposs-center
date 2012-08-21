@@ -85,6 +85,7 @@ Apposs::Application.routes.draw do
     resources :machines, :module => 'operation' do
       get :directives, :on => :member
     end
+    get :pluglets, :on => :member
   end
   resources :softwares
   

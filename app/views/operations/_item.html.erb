@@ -1,5 +1,5 @@
   <span style="float:left;margin-right:4px">
-    <%=image_tag 'refresh.png', :onclick=>'return $(this).parent().parent().children().last().trigger("refresh.application");', :title => '手动刷新' %>
+    <i class="icon-tasks">&nbsp;</i>
   </span>
   <span style="float:left" onclick="return $(this).parent().children().last().trigger('load_toggle.application')" title="单击查看相关机器">
     <%=resource.name %>

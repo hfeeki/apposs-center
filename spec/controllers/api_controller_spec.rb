@@ -27,7 +27,7 @@ describe ApiController do
         amount = ot.expression.split(/,/).count * machine_count
         get :commands, :room_name => room.name
         response.should be_success
-        response.body.split(/\n/).count.should == amount
+        response.body.split(/\n/).count.should == machine_count
       end
     end
   end

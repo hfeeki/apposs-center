@@ -83,7 +83,7 @@ describe Operation do
   def build_operation_sequence is_hold
     old_count = Directive.count
     app = App.first
-    ot = app.operation_templates.last
+    ot = app.operation_templates.find(3)
     directive_count = ot.expression.split(",").count
     directive_count.should == 2
     user = User.first

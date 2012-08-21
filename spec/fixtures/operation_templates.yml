@@ -13,3 +13,8 @@ operation_template3:
   app_id: 1
   name: "do before script"
   expression: "1,2"
+operatin_template4:
+  id: 4
+  app_id: 1
+  name: 'complex operation'
+  expression: '13,1,2,13,3'

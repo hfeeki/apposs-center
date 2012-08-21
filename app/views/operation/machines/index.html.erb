@@ -1,8 +1,20 @@
 <ul class="nav nav-list" style="background-color:#ddd">
+  <% if @operation.directives.where(pluggable:true).count > 0 %>
+  <li>
+    <span style="float:left;margin-right:4px">
+      <i class="icon-globe"></i>
+    </span>
+    <span onclick="return $(this).parent().children().last().trigger('load_toggle.application')">
+      系统任务
+    </span>
+    <div style="clear:both"></div>
+    <div box-href="<%=pluglets_operation_path(params[:operation_id]) %>"></div>
+    </li>
+  <% end %>
   <% @machines.each do |machine| %>
   <li>
     <span style="float:left;margin-right:4px">
-      <%=image_tag 'refresh.png', :onclick=>'return $(this).parent().parent().children().last().trigger("refresh.application");', :title => '手动刷新' %>
+      <i class="icon-briefcase"></i>
     </span>
     <span style="float:left" onclick="return $(this).parent().children().last().trigger('load_toggle.application')">
       <%=machine.name %>

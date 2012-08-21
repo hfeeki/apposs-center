@@ -51,7 +51,7 @@ describe User do
 
     it "列举能执行的操作" do
       app = App.find 1
-      @u.owned_operation_templates(app).count.should == 3
+      @u.owned_operation_templates(app).count.should == 4
       @u.ungrant(Role::PE, app)
       @u.owned_operation_templates(app).count.should == 2
     end

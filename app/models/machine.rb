@@ -70,16 +70,25 @@ class Machine < ActiveRecord::Base
     }
   end
 
+  # 获取当前机器的参数信息
   def properties
-    env.enable_properties
+    (env||app).send :enable_properties rescue Property.global.pairs
   end
   
+  def directive_args
+    {
+      :params => properties,
+      :machine_id => id,
+      :room_id => room_id,
+      :room_name => room.try(:name),
+      :machine_host => host
+    }
+  end
+
   def inner_directive command
     DirectiveGroup['default'].directive_templates[command].gen_directive(
-        :room_id => room.id,
-        :room_name => room.name,
-        :machine_host => self.host,
-        :machine => self
+      directive_args.update(:room_name => room.name)
     )
   end
+
 end

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-# 操作模板，所有的运维操作都基于一个模型来执行，大部分原子指令也是在 gen_operation 的时候生成的
+# 操作模板，所有的运维操作都基于一个操作模板来执行
 class OperationTemplate < ActiveRecord::Base
 
   belongs_to :app
@@ -54,10 +54,9 @@ class OperationTemplate < ActiveRecord::Base
   # previous_id: 上次操作的操作id，用于建立链式操作过程
   # is_hold: 操作创建时的状态，有效值包括true，false，nil，分别对应hold，wait和init
   def gen_operation user, choosed_machine_ids,previous_id=nil, is_hold=nil
-    machine_ids = available_machines(user).collect{|m| m.id} & choosed_machine_ids
-    raise '您选择的机器不允许执行相关操作，请在操作允许的机器中进行选择' if machine_ids.size == 0
+    check_machines user, choosed_machine_ids
+    check_operation_limitation choosed_machine_ids
 
-    check_operation_limitation machine_ids
     #支持operation_template进行前处理，self是当前operation_template
     if self.begin_script and previous_id.nil?
       instance_eval(begin_script) 
@@ -75,8 +74,8 @@ class OperationTemplate < ActiveRecord::Base
         :operator => user, :name => name, :app => app,:previous_id => previous_id,:state => state
     )
     
-    build_machine_operations operation.id, machine_ids
-    build_directives operation.id, machine_ids, state != 'init'
+    build_machine_operations operation.id, choosed_machine_ids
+    build_directives operation.id, retrieve_machines(choosed_machine_ids), state != 'init'
     
     operation
   end
@@ -92,6 +91,11 @@ class OperationTemplate < ActiveRecord::Base
         operation_on_bottom
       end.
       tap{|operations| operations.first.enable}
+  end
+
+  def check_machines user, choosed_machine_ids
+    machine_ids = available_machines(user).collect{|m| m.id} & choosed_machine_ids
+    raise '您选择的机器不允许执行相关操作，请在操作允许的机器中进行选择' if machine_ids.size == 0
   end
 
   def check_operation_limitation machine_ids
@@ -126,37 +130,34 @@ class OperationTemplate < ActiveRecord::Base
 
   # 根据 operation id 生成 directive 记录)
   # machine_ids 要求必须是一个integer数组
-  def build_directives operation_id, machine_ids, is_hold
-    if machine_ids
-      machines = app.machines.where(:id => machine_ids[0..10])
-    else
-      machines = app.machines
-    end
-    room_map = Room.
-        where(:id => machines.collect { |m| m.room_id }.uniq).
-        inject({}) { |map, room| map.update(room.id => room.name) }
+  def build_directives operation_id, machines, is_hold
+    top_directives = []
+    pre_directives = {}
 
-    properties = Property.global.pairs
-    properties.update( app.properties.pairs )
-    directive_templates do |directive_template, next_when_fail|
-      # 循环创建 directive 对象
-      machines.collect { |m|
-        command_name = directive_template.name
-        directive_template_id = directive_template.id
-        properties.update(m.env.properties.pairs) if m.env
-
-        m.directives.create(
-            :directive_template_id => directive_template_id,
-            :operation_id => operation_id,
-            :room_id => m.room_id,
-            :machine_host => m.host,
-            :command_name => command_name,
-            :room_name => room_map[m.room_id],
-            :params => properties,
-            :next_when_fail => next_when_fail,
-            :state => is_hold ? 'hold' : 'init'
-        )
+    directive_templates.each_with_index do |pair,index|
+      directive_template, next_when_fail = pair
+      
+      info = {
+        :operation_id => operation_id,
+        :next_when_fail => next_when_fail,
+        :state => 'hold'
       }
+
+      pre_directives = directive_template.make_directives(info,app,machines) do |machine_id, directive|
+        if index == 0
+          top_directives << directive
+        else
+          pre_directive = pre_directives[machine_id]
+          if pre_directive.pluggable? && (!directive.pluggable?)
+            directive.update_attribute :pre_id, pre_directive.id
+          else
+            pre_directive.update_attribute :next_id, directive.id
+          end
+        end
+      end
+    end
+    unless is_hold
+      top_directives.each{|directive| directive.enable} 
     end
   end
   
@@ -173,15 +174,27 @@ class OperationTemplate < ActiveRecord::Base
     templates = DirectiveTemplate.
       where(:id => pairs.map{|pair| pair[0]}.uniq).
       all.
-      inject({}) do |map, m|
-        map.update( m.id => m)
-      end
-    if block_given?
-      pairs.each do |pair|
-        if templates[pair[0]]
-          yield templates[pair[0]], pair[1] == "true" # 为真表示错误可忽略
+      inject({}){ |map, m| map.update( m.id => m) }
+
+    pairs.map do |pair|
+      # pair[0]可能为空
+      # pair[1]为真表示错误可忽略
+      if templates[pair[0]]
+        if block_given?
+          yield templates[pair[0]], pair[1] == "true"
+        else
+          [templates[pair[0]], pair[1] == "true"]
         end
       end
+    end.delete_if{|key| key.nil?}
+  end
+
+  private
+  def retrieve_machines machine_ids
+    if machine_ids
+      app.machines.where(:id => machine_ids[0..10])
+    else
+      app.machines
     end
   end
 

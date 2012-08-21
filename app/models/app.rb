@@ -99,7 +99,11 @@ class App < ActiveRecord::Base
     envs[:online,true]
     envs[:pre,true]
   end
-  
+
+  def enable_properties
+    Property.global.pairs.merge( properties.pairs )
+  end
+
   def to_s
   	send :name
   end

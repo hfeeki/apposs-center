@@ -26,6 +26,8 @@ namespace :install do
 
   desc "pick up the data your want to load"
   task :data => :config do
+    puts "生成pluglets"
+    setup_file 'config/pluglets.yml'
     puts "生成初始数据"
     setup_file 'db/fixtures/02-users.rb'
     setup_file 'db/fixtures/03-agents.rb'

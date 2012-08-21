@@ -63,4 +63,9 @@ directive_template12:
   directive_group_id: 3
   name: 'machine|interrupt'
   alias: 'machine|interrupt'
-
+directive_template13:
+  id: 13
+  directive_group_id: 1
+  name: 'do a pluglet'
+  alias: 'a pluglet'
+  pluggable: true
