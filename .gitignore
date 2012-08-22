@@ -25,6 +25,7 @@ config/database.yml
 config/pluglets.yml
 config/initializers/omniauth.rb
 config/environments/production.rb
+private
 public/store
 public/assets
 public/apposs_file

@@ -8,7 +8,7 @@ zh-CN:
         failure: "失败"
         done: "完成"
         wait: "等待"
-        hold: "暂停"
+        hold: "挂起"
         normal: "正常"
         paused: "暂停"
         offlined: '下线'

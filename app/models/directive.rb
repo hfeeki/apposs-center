@@ -30,11 +30,14 @@ class Directive < ActiveRecord::Base
         operation_template_id: self.operation.operation_template.id
       ).first
       if file_entry
-      app = self.operation.app
-      self.params = {
-        public_folder: "#{file_entry.public_folder}/target",
-        private_folder: "#{file_entry.private_folder}/target"
-      }.update(self.params||{})
+        app = self.operation.app
+        self.params = {
+          public_folder: "#{file_entry.public_folder}/target",
+          private_folder: "#{file_entry.private_folder}/target"
+        }.update(self.params||{})
+		Rails.logger.info "directive(#{self.id}) params: #{self.params.inspect}"
+	  else
+		Rails.logger.info "file_entry not found: #{self.operation_id}"
       end
     end
 
@@ -99,7 +102,9 @@ class Directive < ActiveRecord::Base
   end
 
   def after_enable
-    if self.pluggable?
+    if pluggable?
+      download
+      invoke
       exec_command
     end
   end
@@ -144,10 +149,18 @@ class Directive < ActiveRecord::Base
   end
 
   def exec_command
-    self.download
-    self.invoke
-    body,isok = Bundler.with_clean_env do [`#{self.command_name}`||'', $?.success?] end
-    self.callback isok,body
+    pid = Process.fork
+    if pid.nil?
+      Bundler.with_clean_env do
+        Rails.logger.info "exec command: #{self.command_name}"
+        body = `#{self.command_name}`
+        result = $?.success?
+        Rails.logger.info "exec result: #{body} - #{result}"
+        self.callback result,(body||'')
+      end
+    else
+      Process.waitpid pid
+    end
   end
 
 end
