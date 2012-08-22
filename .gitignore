@@ -22,6 +22,7 @@ vendor/bundle
 tmp
 log
 config/database.yml
+config/pluglets.yml
 config/initializers/omniauth.rb
 config/environments/production.rb
 public/store

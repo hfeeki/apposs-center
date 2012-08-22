@@ -65,7 +65,7 @@ class Directive < ActiveRecord::Base
     # 需要延迟使用的directive，可以初始化为hold状态
     event :enable do transition :hold => :init end
     # 清理已经无用的未执行directive
-    event :clear do transition [:disable, :init, :ready] => :done end
+    event :clear do transition [:hold, :init, :ready] => :done end
     event :download do transition :init => :ready end
     event :invoke do transition :ready => :running end
     event :force_stop do transition :running => :failure end
