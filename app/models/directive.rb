@@ -105,7 +105,7 @@ class Directive < ActiveRecord::Base
     if pluggable?
       download
       invoke
-      exec_command
+      exec_command command
     end
   end
 
@@ -148,18 +148,21 @@ class Directive < ActiveRecord::Base
     end
   end
 
-  def exec_command
-    pid = Process.fork
-    if pid.nil?
-      Bundler.with_clean_env do
-        Rails.logger.info "exec command: #{self.command_name}"
-        body = `#{self.command_name}`
-        result = $?.success?
-        Rails.logger.info "exec result: #{body} - #{result}"
-        self.callback result,(body||'')
+  def exec_command cmd
+    Bundler.with_clean_env do
+      Rails.logger.info "exec command: #{cmd}"
+      IO.popen('-') do |io|
+        if io
+          # parent
+          io.gets
+        else
+          # child
+          body = `#{cmd}`
+          result = $?.exitstatus
+          self.callback result==0,body
+          Rails.logger.info "exec result: #{cmd} - #{result}"
+        end
       end
-    else
-      Process.waitpid pid
     end
   end
 
