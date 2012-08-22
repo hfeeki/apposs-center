@@ -1,0 +1,211 @@
+{
+  "scan_info": {
+    "app_path": "/home/john/projects/taobao/apposs-core",
+    "rails_version": "3.2.6",
+    "security_warnings": 12,
+    "timestamp": "2012-08-22 09:33:01 +0800",
+    "checks_performed": [
+      "BasicAuth",
+      "CrossSiteScripting",
+      "DefaultRoutes",
+      "EscapeFunction",
+      "Evaluation",
+      "Execute",
+      "FileAccess",
+      "FilterSkipping",
+      "ForgerySetting",
+      "LinkTo",
+      "LinkToHref",
+      "MailTo",
+      "MassAssignment",
+      "ModelAttributes",
+      "NestedAttributes",
+      "QuoteTableName",
+      "Redirect",
+      "Render",
+      "ResponseSplitting",
+      "SQL",
+      "SafeBufferManipulation",
+      "SelectVulnerability",
+      "Send",
+      "SendFile",
+      "SessionSettings",
+      "SkipBeforeFilter",
+      "StripTags",
+      "TranslateBug",
+      "ValidationRegex",
+      "WithoutProtection"
+    ],
+    "number_of_controllers": 24,
+    "number_of_models": 23,
+    "number_of_templates": 103,
+    "ruby_version": "1.9.3",
+    "brakeman_version": "1.6.2"
+  },
+  "warnings": [
+    {
+      "warning_type": "Dangerous Send",
+      "message": "User controlled method execution",
+      "file": "/home/john/projects/taobao/apposs-core/app/controllers/api_controller.rb",
+      "line": 83,
+      "code": "Machine.where(:host => (params[:host])).first.send(params[:event].to_sym)",
+      "location": {
+        "type": "method",
+        "class": "ApiController",
+        "method": "machine_on"
+      },
+      "user_input": "params[:event].to_sym",
+      "confidence": "High"
+    },
+    {
+      "warning_type": "Attribute Restriction",
+      "message": "Mass assignment is not restricted using attr_accessible",
+      "file": "/home/john/projects/taobao/apposs-core/app/controllers/app, dangerous, directive, directive_group, directive_template, keyword, machine, operation, operation_template, property, release_pack, role, room, software, stakeholder, user.rb",
+      "line": null,
+      "code": null,
+      "location": {
+        "type": "model",
+        "model": "App, Dangerous, Directive, DirectiveGroup, DirectiveTemplate, Keyword, Machine, Operation, OperationTemplate, Property, ReleasePack, Role, Room, Software, Stakeholder, User"
+      },
+      "user_input": null,
+      "confidence": "High"
+    },
+    {
+      "warning_type": "File Access",
+      "message": "User input value used in file name",
+      "file": "/home/john/projects/taobao/apposs-core/app/controllers/envs_controller.rb",
+      "line": 23,
+      "code": "File.open(\"#{\"#{Rails.root}/public/store/#{App.find(params[:app_id]).envs.find(params[:id]).app.id}/#{App.find(params[:app_id]).envs.find(params[:id]).id}\"}/pe.conf\", \"w\")",
+      "location": {
+        "type": "method",
+        "class": "EnvsController",
+        "method": "update"
+      },
+      "user_input": "App.find(params[:app_id]).envs",
+      "confidence": "High"
+    },
+    {
+      "warning_type": "File Access",
+      "message": "User input value used in file name",
+      "file": "/home/john/projects/taobao/apposs-core/app/controllers/envs_controller.rb",
+      "line": 22,
+      "code": "FileUtils.mkdir_p(\"#{Rails.root}/public/store/#{App.find(params[:app_id]).envs.find(params[:id]).app.id}/#{App.find(params[:app_id]).envs.find(params[:id]).id}\")",
+      "location": {
+        "type": "method",
+        "class": "EnvsController",
+        "method": "update"
+      },
+      "user_input": "App.find(params[:app_id]).envs",
+      "confidence": "High"
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "message": "Unprotected mass assignment",
+      "file": "/home/john/projects/taobao/apposs-core/app/controllers/envs_controller.rb",
+      "line": 19,
+      "code": "App.find(params[:app_id]).envs.find(params[:id]).update_attributes(params[:env].slice(:property_content, :property_file))",
+      "location": {
+        "type": "method",
+        "class": "EnvsController",
+        "method": "update"
+      },
+      "user_input": "params[:env].slice(:property_content, :property_file)",
+      "confidence": "High"
+    },
+    {
+      "warning_type": "Dangerous Send",
+      "message": "User controlled method execution",
+      "file": "/home/john/projects/taobao/apposs-core/app/controllers/resource_controller.rb",
+      "line": 13,
+      "code": "resource.send(params[:event].to_sym)",
+      "location": {
+        "type": "method",
+        "class": "ResourceController",
+        "method": "event"
+      },
+      "user_input": "params[:event].to_sym",
+      "confidence": "High"
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "message": "Unprotected mass assignment",
+      "file": "/home/john/projects/taobao/apposs-core/app/models/app.rb",
+      "line": 70,
+      "code": "DirectiveTemplate.create!(:alias => ((local title)), :name => ((local command)), :directive_group_id => (DirectiveGroup.find_or_create_by_name(\"app:#{name}\").id), :owner_id => 0)",
+      "location": {
+        "type": "method",
+        "class": "App",
+        "method": "make_command"
+      },
+      "user_input": "DirectiveGroup.find_or_create_by_name(\"app:#{name}\").id",
+      "confidence": "Weak"
+    },
+    {
+      "warning_type": "Command Injection",
+      "message": "Possible command injection",
+      "file": "/home/john/projects/taobao/apposs-core/app/models/directive.rb",
+      "line": 154,
+      "code": "`#{self.command_name}`",
+      "location": {
+        "type": "method",
+        "class": "Directive",
+        "method": "exec_command"
+      },
+      "user_input": null,
+      "confidence": "Medium"
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "message": "Unprotected mass assignment",
+      "file": "/home/john/projects/taobao/apposs-core/app/models/user.rb",
+      "line": 38,
+      "code": "self.acls.create(:role_id => (Role[(local role)].id), :resource_type => (System.instance.class.to_s), :resource_id => (System.instance.id))",
+      "location": {
+        "type": "method",
+        "class": "User",
+        "method": "grant"
+      },
+      "user_input": "System.instance.id",
+      "confidence": "Weak"
+    },
+    {
+      "warning_type": "Cross Site Scripting",
+      "message": "Unescaped model attribute",
+      "file": "/home/john/projects/taobao/apposs-core/app/views/backend/apps/_collection.html.erb",
+      "line": 7,
+      "code": "(Unresolved Model).new.map do  item =   end.join",
+      "location": {
+        "type": "template",
+        "template": "backend/apps/_collection (Template:backend/apps/index)"
+      },
+      "user_input": "(Unresolved Model).new.map",
+      "confidence": "Weak"
+    },
+    {
+      "warning_type": "Cross Site Scripting",
+      "message": "Unescaped model attribute",
+      "file": "/home/john/projects/taobao/apposs-core/app/views/directive_templates/add_all.js.erb",
+      "line": 2,
+      "code": "current_user.load_directive_templates(DirectiveTemplate.where(:id => (params[:imported_ids]))).collect do  dt =   end.flatten.collect do  msg =   end.join",
+      "location": {
+        "type": "template",
+        "template": "directive_templates/add_all (DirectiveTemplatesController#add_all)"
+      },
+      "user_input": "DirectiveTemplate.where(:id => (params[:imported_ids]))",
+      "confidence": "Weak"
+    },
+    {
+      "warning_type": "Default Routes",
+      "message": "All public methods in controllers are available as actions in routes.rb",
+      "file": "/home/john/projects/taobao/apposs-core/config/routes.rb",
+      "line": 96,
+      "code": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "High"
+    }
+  ],
+  "errors": [
+
+  ]
+}
