@@ -11,7 +11,7 @@
           <dt><%=resource_class.human_attribute_name :alias %></dt>
           <dd><%=f.text_field :alias %></dd>
           <dt><%=resource_class.human_attribute_name :name %></dt>
-          <dd><%=f.text_area :name, value: (resource.name||'').gsub(/ && /, "\n"),
+          <dd><%=f.text_area :name, value: (resource.name||'').gsub(/ && /, "\n"),style: 'width:450px', 
             rows: 10, wrap: 'virtual',placeholder: '用户可以输入多行，但是系统会自动将这些命令行用 && 连接，因此执行时将被视为一行脚本' %></dd>
           <dt>
           <%=f.submit '提交' %>

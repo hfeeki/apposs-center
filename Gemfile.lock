@@ -1,4 +1,31 @@
 GIT
+<<<<<<< HEAD
+=======
+  remote: git://github.com/collectiveidea/delayed_job.git
+  revision: 0333bf17109d1ddd3fc86cc758e0725ec76031b1
+  specs:
+    delayed_job (3.0.3)
+      activesupport (~> 3.0)
+
+GIT
+  remote: git://github.com/fsword/brakeman.git
+  revision: 902f27d689ee673354c90804232392d4f0b8a0e3
+  specs:
+    brakeman (1.7.1)
+      activesupport
+      erubis (~> 2.6)
+      fastercsv (~> 1.5)
+      haml (~> 3.0)
+      highline (~> 1.6)
+      i18n
+      json_pure
+      ruby2ruby (~> 1.2)
+      ruby_parser (= 2.3.1)
+      sass (~> 3.0)
+      terminal-table (~> 1.4)
+
+GIT
+>>>>>>> 2f7d434... 小改动
   remote: git://github.com/taobao/apposs_file.git
   revision: 48bb3499cee2b5eb4a8612f6bc588a1795fc1aaa
   specs:
@@ -86,6 +113,7 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.1)
       multipart-post (~> 1.1)
+    fastercsv (1.5.5)
     ffi (1.0.11)
     ffi (1.0.11-java)
     gherkin (2.11.0)
@@ -103,8 +131,10 @@ GEM
     guard-spork (1.0.0)
       guard (>= 1.0.0)
       spork (>= 0.8.4)
+    haml (3.1.7)
     has_scope (0.5.1)
     hashie (1.2.0)
+    highline (1.6.14)
     hike (1.2.1)
     httpauth (0.1)
     i18n (0.6.0)
@@ -122,6 +152,7 @@ GEM
       railties (>= 3.1.0)
     json (1.7.4)
     json (1.7.4-java)
+    json_pure (1.7.5)
     jwt (0.1.5)
       multi_json (>= 1.0)
     less (2.2.1)
@@ -241,6 +272,11 @@ GEM
       railties (>= 3.0)
       rspec (~> 2.10.0)
     ruby-graphviz (1.0.5)
+    ruby2ruby (1.3.1)
+      ruby_parser (~> 2.0)
+      sexp_processor (~> 3.0)
+    ruby_parser (2.3.1)
+      sexp_processor (~> 3.0)
     rubyzip (0.9.8)
     sass (3.1.19)
     sass-rails (3.2.5)
@@ -256,6 +292,7 @@ GEM
       libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
       rubyzip
+    sexp_processor (3.2.0)
     simplecov (0.6.4)
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
@@ -272,6 +309,7 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     state_machine (1.1.2)
+    terminal-table (1.4.5)
     therubyracer (0.10.1)
       libv8 (~> 3.3.10)
     thor (0.15.4)
@@ -307,6 +345,7 @@ DEPENDENCIES
   apposs_file!
   apposs_simple_adapter!
   arel
+  brakeman!
   capybara
   coffee-rails (~> 3.2.1)
   cucumber-rails
