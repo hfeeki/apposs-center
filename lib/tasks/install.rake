@@ -26,6 +26,8 @@ namespace :install do
 
   desc "pick up the data your want to load"
   task :data => :config do
+    puts "生成secret"
+    system 'rake secret'
     puts "生成pluglets"
     setup_file 'config/pluglets.yml'
     puts "生成初始数据"
