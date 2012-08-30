@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/fsword/brakeman.git
-  revision: 902f27d689ee673354c90804232392d4f0b8a0e3
+  revision: 5a0eb5281248cf140177af3605f029958ce55d76
   specs:
     brakeman (1.7.1)
       activesupport
@@ -278,7 +278,7 @@ GEM
     ruby_parser (2.3.1)
       sexp_processor (~> 3.0)
     rubyzip (0.9.8)
-    sass (3.1.19)
+    sass (3.2.1)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
