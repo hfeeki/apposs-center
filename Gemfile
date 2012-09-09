@@ -78,7 +78,7 @@ gem 'rails3-jquery-autocomplete'
 gem 'acts-as-taggable-on'
 
 gem "mysql2"
-gem "thin"
+gem "puma"
 gem 'therubyracer'
 gem "json"
 gem "state_machine"
