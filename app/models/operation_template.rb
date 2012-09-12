@@ -19,9 +19,7 @@ class OperationTemplate < ActiveRecord::Base
   attr_accessor :restriction_obj # hash 对象，格式为 { env_id => limit , ... }
 
   validates_length_of :source_ids,:minimum => 1,:message => "至少需要选择一个"
-  
   validates_uniqueness_of :name, :scope => [:app_id]
-  
   validates_presence_of :name
 
   before_save :set_source_ids
@@ -73,11 +71,15 @@ class OperationTemplate < ActiveRecord::Base
     operation = operations.create(
         :operator => user, :name => name, :app => app,:previous_id => previous_id,:state => state
     )
-    
+   
     build_machine_operations operation.id, choosed_machine_ids
-    build_directives operation.id, retrieve_machines(choosed_machine_ids), state != 'init'
-    
+    # invoke perform asyncronized
+    Resque.enqueue(OperationInvoker, operation.id, choosed_machine_ids, state != 'init')
     operation
+  end
+
+  def perform operation, choosed_machine_ids, is_hold
+    build_directives operation.id, retrieve_machines(choosed_machine_ids), is_hold
   end
 
   def gen_operation_by_group user,group_count,is_hold

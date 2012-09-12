@@ -2,6 +2,8 @@
 Apposs::Application.routes.draw do
 
   mount AppossFile::Engine => "/apposs_file"
+  mount Resque::Server, :at => '/tasks'
+
   match '/auth/:provider/callback' => 'home#callback'
 
   root :to => 'apps#index'

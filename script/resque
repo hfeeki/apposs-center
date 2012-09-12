@@ -1,0 +1,25 @@
+#!/bin/bash
+
+APP_PATH=${APP_PATH:-.}
+SCRIPT_NAME='script/resque'
+DAEMON="rake resque:work QUEUE=operation"
+export PIDFILE=tmp/resque.pid
+export INTERVAL=2
+
+case "$1" in
+  start)
+        cd $APP_PATH && nohup $DAEMON 2>&1 > resque.log &
+        ;;
+  stop)
+        kill `cat $PIDFILE`
+        sleep 2
+        ;;
+  force-stop)
+        kill -9 `cat $PIDFILE`
+        ;;
+  *)
+        echo "Usage: $SCRIPT_NAME {start|stop|restart}" >&2
+        exit 3
+        ;;
+esac
+
