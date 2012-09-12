@@ -1,0 +1,30 @@
+#!/bin/bash
+# Original author: Forrest Robertson
+# This file must be linked to /etc/init.d/redis
+# Do NOT "set -e"
+
+DAEMON='redis-server'
+APP_PATH=${APP_PATH:-.}
+SCRIPT_NAME=$APP_PATH/script/redis
+CONFIG_FILE=$APP_PATH/config/redis.conf
+PID=/tmp/redis-server.pid
+
+# Exit if the package is not installed
+#[ -x "$DAEMON" ] || exit 0
+
+case "$1" in
+  start)
+        cd $APP_PATH && $DAEMON $CONFIG_FILE 
+        ;;
+  stop)
+        kill `cat $PID`
+        ;;
+  force-stop)
+        kill -9 `cat $PID`
+        ;;
+  *)
+        echo "Usage: $SCRIPT_NAME {start|stop|restart}" >&2
+        exit 3
+        ;;
+esac
+

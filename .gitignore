@@ -17,6 +17,7 @@ db/fixtures/02-users.rb
 db/fixtures/03-agents.rb
 db/fixtures/04-apps.rb
 nbproject
+dump.rdb
 vendor/cache/*
 vendor/bundle
 tmp
