@@ -1,0 +1,33 @@
+#!/bin/bash
+# Original author: Forrest Robertson
+# This file must be linked to /etc/init.d/puma
+# Do NOT "set -e"
+
+DAEMON='bundle exec puma'
+APP_PATH=${APP_PATH:-.}
+SCRIPT_NAME=$APP_PATH/script/puma
+CONFIG_FILE=$APP_PATH/config/puma.rb
+PID=/tmp/puma.pid
+
+# Exit if the package is not installed
+#[ -x "$DAEMON" ] || exit 0
+
+case "$1" in
+  start)
+        cd $APP_PATH && RAILS_ENV=production $DAEMON -C $CONFIG_FILE > $APP_PATH/log/puma.log 2>&1  &
+        ;;
+  stop)
+        kill `cat $PID`
+        ;;
+  force-stop)
+        kill -9 `cat $PID`
+        ;;
+  restart)
+        kill -SIGUSR2 `cat $PID`
+        ;;
+  *)
+        echo "Usage: $SCRIPT_NAME {start|stop|restart}" >&2
+        exit 3
+        ;;
+esac
+
