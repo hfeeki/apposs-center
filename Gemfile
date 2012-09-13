@@ -77,7 +77,7 @@ gem "jquery-ui-rails"
 gem 'rails3-jquery-autocomplete'
 gem 'acts-as-taggable-on'
 
-gem 'resque', :require => 'resque/server'
+gem 'resque', '>=1.21', :require => 'resque/server'
 
 gem "mysql2"
 gem "puma"

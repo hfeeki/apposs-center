@@ -2,20 +2,19 @@
 
 APP_PATH=${APP_PATH:-.}
 SCRIPT_NAME='script/resque'
-DAEMON="rake resque:work QUEUE=operation"
-export PIDFILE=tmp/resque.pid
-export INTERVAL=2
+DAEMON="bundle exec rake resque:work QUEUE=operation"
+PID=tmp/resque.pid
 
 case "$1" in
   start)
-        cd $APP_PATH && nohup $DAEMON 2>&1 > resque.log &
+        cd $APP_PATH && PIDFILE=$PID BACKGROUND=true INTERVAL=2 rake resque:work QUEUE=operation
         ;;
   stop)
-        kill `cat $PIDFILE`
+        kill `cat $PID`
         sleep 2
         ;;
   force-stop)
-        kill -9 `cat $PIDFILE`
+        kill -9 `cat $PID`
         ;;
   *)
         echo "Usage: $SCRIPT_NAME {start|stop|restart}" >&2
