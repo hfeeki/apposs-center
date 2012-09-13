@@ -46,11 +46,11 @@ class MachinesController < ResourceController
   end
   
   def directives
-    @directives = Machine.find(params[:id]).directives.without_state(:done).desc
+    @directives = Machine.find(params[:id]).directives.without_state(:done).id_desc
   end
   
   def old_directives
-    @directives = Machine.find(params[:id]).directives.where(:state => :done).desc
+    @directives = Machine.find(params[:id]).directives.where(:state => :done).id_desc
   end
 
   def check_machine_ids machine_ids

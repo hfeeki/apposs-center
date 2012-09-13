@@ -18,8 +18,8 @@ class Directive < ActiveRecord::Base
   belongs_to :next, :class_name => 'Directive'
   has_many :pres,   :class_name => 'Directive', :foreign_key => :next_id
   
-  scope :asc, order("operation_id asc, id asc")
-  scope :desc, order("id desc")
+  scope :id_asc, order("operation_id asc, id asc")
+  scope :id_desc, order("id desc")
   scope :normal, where('operation_id <> 0')
   
   attr_accessor :params
