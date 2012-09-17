@@ -1,5 +1,5 @@
 brakeman summary:
-    cd $private_folder && touch brakeman.json && brakeman --summary 2>/dev/null
+    cd $private_folder && bundle exec brakeman -f json --quiet --relative-path --summary 2>/dev/null
 brakeman compare:
-    cd $private_folder && touch brakeman.json && brakeman -f json --compare brakeman.json 2>/dev/null
+    cd $private_folder && bundle exec brakeman -f json --quiet --relative-path --compare brakeman.json 2>/dev/null
 

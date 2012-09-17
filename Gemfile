@@ -9,6 +9,7 @@ gem 'apposs_simple_adapter', :git=>'git://github.com/taobao/apposs_simple_adapte
 gem 'apposs_file', :git=>'git://github.com/taobao/apposs_file.git'
 # gem 'apposs_file', :path => '/home/john/projects/github/apposs_file'
 
+gem 'brakeman', :git=>'git://github.com/fsword/brakeman.git'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

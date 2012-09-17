@@ -2,12 +2,13 @@
   "scan_info": {
     "app_path": "/home/john/projects/taobao/apposs-core",
     "rails_version": "3.2.6",
-    "security_warnings": 12,
-    "timestamp": "2012-08-22 09:33:01 +0800",
+    "security_warnings": 13,
+    "timestamp": "2012-08-30 11:55:30 +0800",
     "checks_performed": [
       "BasicAuth",
       "CrossSiteScripting",
       "DefaultRoutes",
+      "DigestDoS",
       "EscapeFunction",
       "Evaluation",
       "Execute",
@@ -26,10 +27,12 @@
       "ResponseSplitting",
       "SQL",
       "SafeBufferManipulation",
+      "SelectTag",
       "SelectVulnerability",
       "Send",
       "SendFile",
       "SessionSettings",
+      "SingleQuotes",
       "SkipBeforeFilter",
       "StripTags",
       "TranslateBug",
@@ -40,14 +43,26 @@
     "number_of_models": 23,
     "number_of_templates": 103,
     "ruby_version": "1.9.3",
-    "brakeman_version": "1.6.2"
+    "brakeman_version": "1.7.1"
   },
   "warnings": [
     {
+      "warning_type": "Cross Site Scripting",
+      "message": "Rails 3.2.6 does not escape single quotes (CVE-2012-3464). Upgrade to 3.2.8",
+      "file": "Gemfile",
+      "line": null,
+      "link": "https://groups.google.com/d/topic/rubyonrails-security/kKGNeMrnmiY/discussion",
+      "code": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Medium"
+    },
+    {
       "warning_type": "Dangerous Send",
       "message": "User controlled method execution",
-      "file": "/home/john/projects/taobao/apposs-core/app/controllers/api_controller.rb",
+      "file": "app/controllers/api_controller.rb",
       "line": 83,
+      "link": "http://brakemanscanner.org/docs/warning_types/dangerous_send/",
       "code": "Machine.where(:host => (params[:host])).first.send(params[:event].to_sym)",
       "location": {
         "type": "method",
@@ -60,8 +75,9 @@
     {
       "warning_type": "Attribute Restriction",
       "message": "Mass assignment is not restricted using attr_accessible",
-      "file": "/home/john/projects/taobao/apposs-core/app/controllers/app, dangerous, directive, directive_group, directive_template, keyword, machine, operation, operation_template, property, release_pack, role, room, software, stakeholder, user.rb",
+      "file": "app/controllers/app, dangerous, directive, directive_group, directive_template, keyword, machine, operation, operation_template, property, release_pack, role, room, software, stakeholder, user.rb",
       "line": null,
+      "link": "http://brakemanscanner.org/docs/warning_types/attribute_restriction/",
       "code": null,
       "location": {
         "type": "model",
@@ -72,37 +88,25 @@
     },
     {
       "warning_type": "File Access",
-      "message": "User input value used in file name",
-      "file": "/home/john/projects/taobao/apposs-core/app/controllers/envs_controller.rb",
+      "message": "Model attribute value used in file name",
+      "file": "app/controllers/envs_controller.rb",
       "line": 23,
+      "link": "http://brakemanscanner.org/docs/warning_types/file_access/",
       "code": "File.open(\"#{\"#{Rails.root}/public/store/#{App.find(params[:app_id]).envs.find(params[:id]).app.id}/#{App.find(params[:app_id]).envs.find(params[:id]).id}\"}/pe.conf\", \"w\")",
       "location": {
         "type": "method",
         "class": "EnvsController",
         "method": "update"
       },
-      "user_input": "App.find(params[:app_id]).envs",
-      "confidence": "High"
-    },
-    {
-      "warning_type": "File Access",
-      "message": "User input value used in file name",
-      "file": "/home/john/projects/taobao/apposs-core/app/controllers/envs_controller.rb",
-      "line": 22,
-      "code": "FileUtils.mkdir_p(\"#{Rails.root}/public/store/#{App.find(params[:app_id]).envs.find(params[:id]).app.id}/#{App.find(params[:app_id]).envs.find(params[:id]).id}\")",
-      "location": {
-        "type": "method",
-        "class": "EnvsController",
-        "method": "update"
-      },
-      "user_input": "App.find(params[:app_id]).envs",
-      "confidence": "High"
+      "user_input": "App.find(params[:app_id])",
+      "confidence": "Medium"
     },
     {
       "warning_type": "Mass Assignment",
       "message": "Unprotected mass assignment",
-      "file": "/home/john/projects/taobao/apposs-core/app/controllers/envs_controller.rb",
+      "file": "app/controllers/envs_controller.rb",
       "line": 19,
+      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "App.find(params[:app_id]).envs.find(params[:id]).update_attributes(params[:env].slice(:property_content, :property_file))",
       "location": {
         "type": "method",
@@ -113,10 +117,26 @@
       "confidence": "High"
     },
     {
+      "warning_type": "File Access",
+      "message": "Model attribute value used in file name",
+      "file": "app/controllers/envs_controller.rb",
+      "line": 22,
+      "link": "http://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "FileUtils.mkdir_p(\"#{Rails.root}/public/store/#{App.find(params[:app_id]).envs.find(params[:id]).app.id}/#{App.find(params[:app_id]).envs.find(params[:id]).id}\")",
+      "location": {
+        "type": "method",
+        "class": "EnvsController",
+        "method": "update"
+      },
+      "user_input": "App.find(params[:app_id])",
+      "confidence": "Medium"
+    },
+    {
       "warning_type": "Dangerous Send",
       "message": "User controlled method execution",
-      "file": "/home/john/projects/taobao/apposs-core/app/controllers/resource_controller.rb",
+      "file": "app/controllers/resource_controller.rb",
       "line": 13,
+      "link": "http://brakemanscanner.org/docs/warning_types/dangerous_send/",
       "code": "resource.send(params[:event].to_sym)",
       "location": {
         "type": "method",
@@ -129,8 +149,9 @@
     {
       "warning_type": "Mass Assignment",
       "message": "Unprotected mass assignment",
-      "file": "/home/john/projects/taobao/apposs-core/app/models/app.rb",
+      "file": "app/models/app.rb",
       "line": 70,
+      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "DirectiveTemplate.create!(:alias => ((local title)), :name => ((local command)), :directive_group_id => (DirectiveGroup.find_or_create_by_name(\"app:#{name}\").id), :owner_id => 0)",
       "location": {
         "type": "method",
@@ -143,9 +164,10 @@
     {
       "warning_type": "Command Injection",
       "message": "Possible command injection",
-      "file": "/home/john/projects/taobao/apposs-core/app/models/directive.rb",
-      "line": 154,
-      "code": "`#{self.command_name}`",
+      "file": "app/models/directive.rb",
+      "line": 162,
+      "link": "http://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`#{(local cmd)} 2>&1`",
       "location": {
         "type": "method",
         "class": "Directive",
@@ -157,8 +179,9 @@
     {
       "warning_type": "Mass Assignment",
       "message": "Unprotected mass assignment",
-      "file": "/home/john/projects/taobao/apposs-core/app/models/user.rb",
+      "file": "app/models/user.rb",
       "line": 38,
+      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "self.acls.create(:role_id => (Role[(local role)].id), :resource_type => (System.instance.class.to_s), :resource_id => (System.instance.id))",
       "location": {
         "type": "method",
@@ -171,8 +194,9 @@
     {
       "warning_type": "Cross Site Scripting",
       "message": "Unescaped model attribute",
-      "file": "/home/john/projects/taobao/apposs-core/app/views/backend/apps/_collection.html.erb",
+      "file": "app/views/backend/apps/_collection.html.erb",
       "line": 7,
+      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "(Unresolved Model).new.map do  item =   end.join",
       "location": {
         "type": "template",
@@ -184,8 +208,9 @@
     {
       "warning_type": "Cross Site Scripting",
       "message": "Unescaped model attribute",
-      "file": "/home/john/projects/taobao/apposs-core/app/views/directive_templates/add_all.js.erb",
+      "file": "app/views/directive_templates/add_all.js.erb",
       "line": 2,
+      "link": "http://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "current_user.load_directive_templates(DirectiveTemplate.where(:id => (params[:imported_ids]))).collect do  dt =   end.flatten.collect do  msg =   end.join",
       "location": {
         "type": "template",
@@ -197,8 +222,9 @@
     {
       "warning_type": "Default Routes",
       "message": "All public methods in controllers are available as actions in routes.rb",
-      "file": "/home/john/projects/taobao/apposs-core/config/routes.rb",
+      "file": "config/routes.rb",
       "line": 96,
+      "link": "http://brakemanscanner.org/docs/warning_types/default_routes/",
       "code": null,
       "location": null,
       "user_input": null,
