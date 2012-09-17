@@ -66,6 +66,6 @@ directive_template12:
 directive_template13:
   id: 13
   directive_group_id: 1
-  name: 'do a pluglet'
+  name: 'echo do a pluglet'
   alias: 'a pluglet'
   pluggable: true
