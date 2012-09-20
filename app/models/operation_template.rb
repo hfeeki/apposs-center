@@ -84,6 +84,12 @@ class OperationTemplate < ActiveRecord::Base
 
   def perform operation, choosed_machine_ids, is_hold
     build_directives operation.id, retrieve_machines(choosed_machine_ids), is_hold
+    if is_hold # 如果之前设定为hold，当指令创建完毕后需要检查操作是否已被enable
+      operation.reload
+      unless operation.hold? || operation.wait?
+        operation.enable_directive
+      end
+    end
   end
 
   def gen_operation_by_group user,group_count,is_hold
