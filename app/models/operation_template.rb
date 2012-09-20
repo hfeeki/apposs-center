@@ -74,7 +74,7 @@ class OperationTemplate < ActiveRecord::Base
    
     build_machine_operations operation.id, choosed_machine_ids
     # invoke perform asyncronized
-    if Rails.env=='test' || Rails.env=='cucumber'
+    if Rails.env.test? || Rails.env.cucumber?
       OperationInvoker.perform operation.id, choosed_machine_ids, state != 'init'
     else
       Resque.enqueue(OperationInvoker, operation.id, choosed_machine_ids, state != 'init')
