@@ -19,7 +19,7 @@
       <td><%=f.check_box :is_hold, :checked => true %></td>
     </tr>
     </table>
-    <%=f.submit '提交', data:{confirm: "系统将分组执行操作：#{resource.name}，请确认"} %>
+    <%=f.submit '按照分组执行操作', data:{confirm: "系统将分组执行操作：#{resource.name}，请确认"} %>
     <input type="reset" value="取消"
       onclick="$('#zone').html('');" />
   <% end %>
