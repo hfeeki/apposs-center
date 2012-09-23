@@ -1,0 +1,10 @@
+.rspec
+.yardoc/
+config/
+coverage/
+db/
+log/
+public/
+tags
+tmp/
+var/
