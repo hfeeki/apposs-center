@@ -74,7 +74,7 @@ class OperationTemplate < ActiveRecord::Base
    
     build_machine_operations operation.id, choosed_machine_ids
     # invoke perform asyncronized
-    if Rails.env=='test' || Rails.env='cucumber'
+    if Rails.env.test? || Rails.env.cucumber?
       OperationInvoker.perform operation.id, choosed_machine_ids, state != 'init'
     else
       Resque.enqueue(OperationInvoker, operation.id, choosed_machine_ids, state != 'init')
@@ -84,6 +84,12 @@ class OperationTemplate < ActiveRecord::Base
 
   def perform operation, choosed_machine_ids, is_hold
     build_directives operation.id, retrieve_machines(choosed_machine_ids), is_hold
+    if is_hold # 如果之前设定为hold，当指令创建完毕后需要检查操作是否已被enable
+      operation.reload
+      unless operation.hold? || operation.wait?
+        operation.enable_directive
+      end
+    end
   end
 
   def gen_operation_by_group user,group_count,is_hold

@@ -3,6 +3,9 @@
   </span>
   <span style="float:left" onclick="return $(this).parent().children().last().trigger('load_toggle.application')" title="单击查看相关机器">
     <%=resource.name %>
+    <% if resource.operator %>
+      <i class="icon-user"></i><%= resource.operator.email %>
+    <% end %>
   </span>
   <div style="display:inline;float:right">
     <%=actions(resource) %>
