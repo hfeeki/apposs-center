@@ -34,16 +34,13 @@ class ApiController < ApplicationController
   
   #{host,Host},{oid,DirectiveId}
   def run
-    Directive.find(params[:oid]).invoke
+    perform params[:oid], :invoke
   	render :text => params[:oid]
   end
   
   # {isok,atom_to_list(IsOk)},{host,Host},{oid,DirectiveId},{body,Body}
   def callback
-    directive = Directive.where(:id => params[:oid]).first
-    directive.callback(
-        "true"==params[:isok], params[:body]
-    ) if directive
+    perform params[:oid], :callback, "true"==params[:isok], params[:body]
   	render :text => params[:oid]
   end
   
@@ -90,5 +87,14 @@ class ApiController < ApplicationController
     @remote_addr ||= (env['HTTP_X_FORWARDED_FOR'] || 
                       env['HTTP_X_REAL_IP'] || 
                       env['REMOTE_ADDR'])
-  end 
+  end
+
+  def perform oid, action, *args
+    # invoke perform asyncronized
+    if Rails.env.test? || Rails.env.cucumber?
+      DirectiveInvoker.perform oid, action, *args
+    else
+      Resque.enqueue(DirectiveInvoker, oid, action, *args)
+    end
+  end
 end

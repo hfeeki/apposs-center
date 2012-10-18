@@ -16,6 +16,7 @@ class Machine < ActiveRecord::Base
   before_create :fulfill_default
 
   def fulfill_default
+    self.app = self.env.app if (self.app.nil? && self.env)
     if self.host.nil? or self.host.empty?
       self.host = self.name
     end

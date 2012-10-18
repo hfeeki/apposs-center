@@ -14,6 +14,11 @@ class User < ActiveRecord::Base
   end
   
   has_many :apps, :through => :acls, :source => :resource, :source_type => 'App'
+
+  # 用户作为管理员所负责的资源
+  has_many :managed_acls, :class_name => 'Stakeholder', :conditions => {:role => Role[Role::PE]}
+  has_many :managed_apps, :through => :managed_acls, :source => :resource, :source_type => 'App'
+
   has_many :roles,:through => :acls
   
   has_many :operations, :foreign_key => "operator_id"
