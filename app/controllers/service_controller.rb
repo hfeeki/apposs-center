@@ -84,8 +84,8 @@ class ServiceController < ActionController::Base
 
   def app
     @app ||= begin
-               app = App.reals.where(name:params[:app_name])
-               current_user.is_pe?(app) ? app : nil
+               app = App.reals.where(name:params[:app_name]).first
+               @current_user.is_pe?(app) ? app : nil
              end
   end
 end
