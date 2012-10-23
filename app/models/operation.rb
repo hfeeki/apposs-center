@@ -8,6 +8,8 @@ class Operation < ActiveRecord::Base
   DEFAULT_ID = 0 
   STATE_COULD_BE_CLEAR=['hold','wait','init']
 
+  default_scope where('created_at > ?', 1.month.ago) #缺省仅显示最近一个月的操作记录
+  
   belongs_to :operation_template
 
   has_many :machine_operations 
