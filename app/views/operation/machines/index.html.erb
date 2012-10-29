@@ -1,10 +1,10 @@
 <ul class="nav nav-list" style="background-color:#ddd">
   <% if @operation.directives.where(pluggable:true).count > 0 %>
-  <li>
+  <li onclick="return $(this).children().last().trigger('load_toggle.application')" title="单击显示指令">
     <span style="float:left;margin-right:4px">
       <i class="icon-globe"></i>
     </span>
-    <span onclick="return $(this).parent().children().last().trigger('load_toggle.application')">
+    <span>
       系统任务
     </span>
     <div style="clear:both"></div>
@@ -12,15 +12,12 @@
     </li>
   <% end %>
   <% @machines.each do |machine| %>
-  <li>
+  <li onclick="return $(this).children().last().trigger('load_toggle.application')" title="单击显示指令">
     <span style="float:left;margin-right:4px">
       <i class="icon-briefcase"></i>
     </span>
-    <span style="float:left" onclick="return $(this).parent().children().last().trigger('load_toggle.application')">
+    <span style="float:left">
       <%=machine.name %>
-    </span>
-    <span style="float:left;padding:0 6px">
-      <%=link_to('显示指令列表', directives_machine_path(machine.id), :remote => true ) %>
     </span>
     <span style="float:right"><%=machine.human_state_name%></span>
     <div style="clear:both"></div>
