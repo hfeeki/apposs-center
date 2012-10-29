@@ -59,7 +59,7 @@ zh-CN:
   time:
     formats:
       default: "%Y年%b%d日 %H:%M:%S"
-      short: "%b%d日 %H:%M"
+      short: "%m-%d %H:%M:%S"
       long: "%Y年%b%d日 %H:%M"
     am: "上午"
     pm: "下午"
