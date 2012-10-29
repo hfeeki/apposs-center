@@ -19,14 +19,14 @@ class ApiController < ApplicationController
     else
       # 查询参数包括机房的 name 和 id，是考虑到 room 表的name字段发生变动，
       # 此时应该谨慎处理，不下发相应的命令
-      if params[:reload]
-        oper_query = Directive.with_state(:init,:ready,:running)
-      else
-        oper_query = Directive.with_state(:init)
-      end
-      render :text => oper_query.where(:room_id => room.id, :room_name => room.name).collect{|directive|
+      oper_query = if params[:reload]
+                     Directive.with_state(:init,:ready,:running)
+                   else
+                     oper_query = Directive.with_state(:init)
+                   end.where(:room_id => room.id)
+
+      render :text => oper_query.collect{|directive|
         directive.download
-        directive.invoke unless directive.has_operation?
         "#{directive.machine_host}:#{directive.command}:#{directive.id}"
       }.join("\n")
     end
