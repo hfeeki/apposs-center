@@ -1,6 +1,6 @@
 <ul class="nav nav-list" style="background-color:#ddd">
   <% if @operation.directives.where(pluggable:true).count > 0 %>
-  <li onclick="return $(this).children().last().trigger('load_toggle.application')" title="单击显示指令">
+  <li onclick="return $(this).next().trigger('load_toggle.application')" title="单击显示指令">
     <span style="float:left;margin-right:4px">
       <i class="icon-globe"></i>
     </span>
@@ -8,11 +8,11 @@
       系统任务
     </span>
     <div style="clear:both"></div>
-    <div box-href="<%=pluglets_operation_path(params[:operation_id]) %>"></div>
     </li>
+    <div box-href="<%=pluglets_operation_path(params[:operation_id]) %>"></div>
   <% end %>
   <% @machines.each do |machine| %>
-  <li onclick="return $(this).children().last().trigger('load_toggle.application')" title="单击显示指令">
+  <li onclick="return $(this).next().trigger('load_toggle.application')" title="单击显示指令">
     <span style="float:left;margin-right:4px">
       <i class="icon-briefcase"></i>
     </span>
@@ -21,7 +21,7 @@
     </span>
     <span style="float:right"><%=machine.human_state_name%></span>
     <div style="clear:both"></div>
-    <div box-href="<%=directives_operation_machine_path(params[:operation_id],machine.id) %>"></div>
   </li>
+    <div box-href="<%=directives_operation_machine_path(params[:operation_id],machine.id) %>"></div>
   <% end %>
 </ul>
