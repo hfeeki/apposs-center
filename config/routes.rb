@@ -31,6 +31,7 @@ Apposs::Application.routes.draw do
   end
 
   resources :apps do
+    get :intro, :on => :member
     resources :envs
     resources :ops
     resources :permissions

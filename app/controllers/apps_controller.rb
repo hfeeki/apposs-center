@@ -17,7 +17,13 @@ class AppsController < BaseController
     end
   end
   
-
+  def intro
+    @app = current_app
+    respond_to do |format|
+      format.js
+    end
+  end
+    
   def operations
     @app = current_user.apps.find(params[:id])
     @collection = @app.operations.without_state(:done)
