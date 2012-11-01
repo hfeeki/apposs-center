@@ -1,39 +1,35 @@
-      <div class="row-fluid">
-        <div class="span3">
-          <% if current_user.is_pe? current_app %>
-            <div class="well sidebar-nav">
-              <ul class="nav nav-list">
-                <li class="nav-header">应用设置</li>
-                <!--li><%=link_to '管理软件包', app_softwares_path(app), :remote => true %></li-->
-                <li><%=link_to '管理操作权限', app_permissions_path(app_id: app.id), :remote => true %></li>
-                <li><%=link_to '设定操作员', app_ops_path(app_id: app.id), :remote => true %></li>
-                <li><%=link_to '文件同步设置', apposs_file.file_entries_path(app_id: app.id), :remote => true %></li>
-              </ul>
-            </div>
-          <% end %>
-          <div class="well sidebar-nav">
+            <input type="hidden" name="data" />
             <ul class="nav nav-list">
-              <li class="nav-header">更新配置参数</li>
-              <% app.envs.each do |env| %>
-                <%=link_to env.name, edit_app_env_path(app,env), :target => 'blank' %>
-              <% end %>
+              <li class="nav-header">
+                <table><tr>
+                    <td>
+                      服务器
+                      <%=link_to ' ', machines_app_path(app.id), 
+                        remote: true, class: 'icon-refresh', title: '刷新' %>
+                    </td>
+                    <td>
+            <div refer_to="machines">
+              <a href="javascript:void 0;" select="all">全选</a>
+              <a href="javascript:void 0;" select="none">清除</a>
+            </div>
+                    </td>
+                </tr></table>
+              </li>
             </ul>
+            <div style="height:200px; overflow-y:auto; overflow-x: hidden"> 
+            <table class="table">
+              <thead>
+                <tr>
+                </tr>
+                </thead>
+                <tbody id="machines">
+                <% current_user.owned_machines(current_app).each{|machine|%>
+                  <tr id="machines_<%=machine.id %>"> 
+                    <%=render '/apps/machine_item', :machine => machine, :app => app %>
+                  </tr>
+              <% }%>
+              </tbody>
+            </table>
           </div>
-          <%= form_for( :operation_templates,
-                       :url => '#',
-                       :remote => true,
-                       :html => { :name => 'execute_form', :method => "post" }
-                      ) do |f| %>
-            <div id="machines" class="well sidebar-nav">
-              <%=render "/machines/collection", :app => app %>
-            </div>
-            <div id="operation_templates" class="well sidebar-nav">
-              <%=render "/operation_templates/collection", :parent => app %>
-            </div>
-          <% end%>
-        </div><!--/.well -->
-        <div id="zone" class="span9">
-          <%=render "/operations/collection", :parent => app %>
-        </div> 
-      </div><!--/span-->
+           </ul>
 

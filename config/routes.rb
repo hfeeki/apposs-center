@@ -30,8 +30,20 @@ Apposs::Application.routes.draw do
     post :add_all, :on => :collection
   end
 
+  resources :machines do
+    collection do
+      post :change_user
+      get :reload
+    end
+  end
+  
   resources :apps do
-    get :intro, :on => :member
+    member do
+      get :intro
+      get :machines
+      get :operations
+    end
+
     resources :envs
     resources :ops
     resources :permissions
@@ -46,17 +58,11 @@ Apposs::Application.routes.draw do
     end
     resources :softwares
 
-    resources :machines do
-      collection do
-        post :change_user
-      end
-    end
-    
+   
     member do
       get :rooms
       get :operations
       get :old_operations
-      get :reload_machines
     end
   end
   

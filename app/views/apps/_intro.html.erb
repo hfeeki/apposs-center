@@ -21,7 +21,7 @@
                        :remote => true,
                        :html => { :name => 'execute_form', :method => "post" } ) do |f| %>
             <div id="machines" class="well sidebar-nav">
-              <%=render "/machines/collection", :app => app %>
+              <%=render "/apps/machines", :app => app %>
             </div>
             <div id="operation_templates" class="well sidebar-nav">
               <%=render "/operation_templates/collection", :parent => app %>
@@ -33,4 +33,7 @@
           <%=render "/operations/collection", :parent => app %>
         </div> 
       </div><!--/span-->
-
+      <script type="text/javascript">
+        $("#menu li").removeClass("active");
+        $("#m_intro").addClass("active");
+      </script>

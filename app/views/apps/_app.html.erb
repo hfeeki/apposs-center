@@ -1,10 +1,16 @@
       <div class="row-fluid">
-        <ul class="nav nav-tabs">
-          <li class="active">
+        <ul id="menu" class="nav nav-tabs">
+          <li id="m_intro" class="active">
           <%=link_to '概况', intro_app_path(app), remote: true %>
           </li>
-          <li><a href="">服务器管理</a></li>
-          <li><a href="#">操作列表</a></li>
+          <% if current_user.is_pe? app %>
+            <li id="m_machines">
+            <%=link_to '服务器管理', machines_path, remote: true %>
+            </li>
+            <li id="m_operations">
+            <%=link_to '操作列表', operations_app_path(app), remote: true %>
+            </li>
+          <% end %>
         </ul>
       </div>
       <div id="container">

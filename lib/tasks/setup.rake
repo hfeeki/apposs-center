@@ -16,4 +16,12 @@ namespace :setup do
     end
   end
 
+  desc '清理adsci数据'
+  task :adsci_clean => :environment do
+    app = App.reals.find_by_name 'adsci_sandbox'
+    puts '清理指令'
+    app.machines.map(&:directives).flatten.each{|x| puts x.id; x.delete}
+    puts '清理机器'
+    app.machines.map{|x| puts x.name; x.delete}
+  end
 end

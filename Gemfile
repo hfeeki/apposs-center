@@ -4,10 +4,10 @@ gem 'rails', '3.2.6'
 gem 'rake'
 
 gem 'apposs_simple_adapter', :git=>'git://github.com/taobao/apposs_simple_adapter.git'
-# gem 'apposs_simple_adapter', :path=>'/home/john/projects/github/apposs_simple_adapter' 
+# gem 'apposs_simple_adapter', :path=>'/home/john/projects/github/apposs/apposs_simple_adapter' 
 
 gem 'apposs_file', :git=>'git://github.com/taobao/apposs_file.git'
-# gem 'apposs_file', :path => '/home/john/projects/github/apposs_file'
+# gem 'apposs_file', :path => '/home/john/projects/github/apposs/apposs_file'
 
 gem 'brakeman', :git=>'git://github.com/fsword/brakeman.git'
 # Bundle edge Rails instead:

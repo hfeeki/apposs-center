@@ -31,6 +31,5 @@ Apposs::Application.configure do
   config.assets.debug = true
   
   config.serve_static_assets = true
-  config.base_url = 'http://localhost:3000'
 end
 

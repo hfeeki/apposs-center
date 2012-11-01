@@ -53,6 +53,8 @@ zh-CN:
       machine:
         name: '机器名称'
         host: '机器地址'
+        user: '访问用户'
+        password: '密码'
         room: '所属机房'
         app: '所属应用'
       role:

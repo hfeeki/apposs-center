@@ -24,8 +24,15 @@ class AppsController < BaseController
     end
   end
     
+  def machines
+    @machines = current_user.owned_machines(current_app)
+    respond_to do |format|
+      format.js
+    end
+  end
+    
   def operations
-    @app = current_user.apps.find(params[:id])
+    @app = current_app
     @collection = @app.operations.without_state(:done)
     respond_to do |format|
       format.js
@@ -33,18 +40,11 @@ class AppsController < BaseController
   end
 
   def old_operations
-    @app = current_user.apps.find(params[:id])
+    @app = current_app
     @collection = @app.operations.where(:state => :done)
     respond_to do |format|
       format.js
     end
   end
   
-  def reload_machines
-    @app = current_user.apps.find(params[:id])
-    MachineLoader.load @app.id
-    respond_to do |format|
-      format.js
-    end
-  end
 end
