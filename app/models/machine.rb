@@ -14,6 +14,8 @@ class Machine < ActiveRecord::Base
   validates_presence_of :name
 
   before_create :fulfill_default
+  before_destroy :clean_all # 清理这个机器时要中止正在执行的指令
+
 
   def fulfill_default
     self.app = self.env.app if (self.app.nil? && self.env)
@@ -29,8 +31,9 @@ class Machine < ActiveRecord::Base
     event :offline do transition all => :offlined end
   end
 
-  def reassign app_id
-    return false if (app && app.locked?) #允许尚未分配app的machine进行重新设置
+  # 重新分配machine的应用
+  def reassign app_id, force = false
+    return false if (app && app.locked? && !force) 
     app = App.find app_id
     transaction do
       self.directives.each do |dd|

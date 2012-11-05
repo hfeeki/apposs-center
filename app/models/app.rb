@@ -17,7 +17,7 @@ class App < ActiveRecord::Base
   has_many :softwares
 
   # Machine
-  has_many :machines
+  has_many :machines, :dependent => :destroy
 
   has_many :operation_templates
   
@@ -29,7 +29,7 @@ class App < ActiveRecord::Base
     )
   end
 
-  has_many :envs do
+  has_many :envs, :dependent => :destroy do
     def [] name, creatable=false
       if creatable
         where(:name => name).first || create(:name => name)
@@ -39,7 +39,7 @@ class App < ActiveRecord::Base
     end
   end
 
-  has_many :properties, :as => :resource do
+  has_many :properties, :dependent => :destroy, :as => :resource do
     def [] name1
       item = where(:name => name1).first
       item.value if item

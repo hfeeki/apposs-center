@@ -1,7 +1,7 @@
 class Env < ActiveRecord::Base
   belongs_to :app
   
-  has_many :machines
+  has_many :machines, :dependent => :destroy
 
   validates_uniqueness_of :name, :scope => [:app_id]
   
@@ -12,7 +12,7 @@ class Env < ActiveRecord::Base
 
   before_save :load_property
   
-  has_many :properties, :as => :resource do
+  has_many :properties, :dependent => :destroy, :as => :resource do
     def [] name
       item = where(:name => name).first
       item.value if item
@@ -70,7 +70,7 @@ class Env < ActiveRecord::Base
       yield data
     end
   end
-  
+ 
   def to_s
     self.name
   end
