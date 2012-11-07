@@ -6,7 +6,7 @@ class App < ActiveRecord::Base
   scope :reals, where(:virtual => [nil,false], :state => 'running')
 
   # People
-  has_many :acls, :as => :resource, :class_name => 'Stakeholder'
+  has_many :acls, :as => :resource, :dependent => :destroy, :class_name => 'Stakeholder'
 
   has_many :operators, :through => :acls, :source => :user
 
