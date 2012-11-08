@@ -1,6 +1,8 @@
 # encoding: utf-8
 # 目前仅支持 application/json 
 class ServiceController < ActionController::Base
+
+  WHITE_LIST=[/^md5sum/, /^curl –i/, /^rpm –qa/, /^ulimit –n/]
   respond_to :json
 
   before_filter :auth
@@ -55,6 +57,13 @@ class ServiceController < ActionController::Base
           else
             head :bad_request
           end
+        elsif @current_user.is_a? Reader
+          if WHITE_LIST.take_while{|label| params[:command] =~ label}.size > 0
+            directive = m.make_directive(params[:command])
+            respond_with directive
+          else
+            head :bad_request
+          end
         end
       else
         head :unauthorized
@@ -68,6 +77,8 @@ class ServiceController < ActionController::Base
     directive = Directive.find params[:id]
     machine = directive.machine
     if @current_user.owned_machines(machine.app).include? machine
+      respond_with directive
+    elsif @current_user.is_a? Reader
       respond_with directive
     else
       head :unauthorized
