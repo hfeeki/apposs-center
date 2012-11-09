@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class Backend::AclsController < Backend::BaseController
 
   defaults :resource_class => Stakeholder

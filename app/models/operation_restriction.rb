@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class OperationRestriction < ActiveRecord::Base
   attr_accessible :env_id, :limit, :limit_cycle, :operation_template_id
   validates_numericality_of :limit, :greater_than_or_equal_to => 0

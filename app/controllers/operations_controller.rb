@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class OperationsController < ResourceController
   def pluglets
     @directives = Operation.find(params[:id]).directives.where(:pluggable => true)

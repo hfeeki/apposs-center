@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddIndexToStakeholder < ActiveRecord::Migration
   def change
     add_index :stakeholders, [:resource_id, :resource_type]

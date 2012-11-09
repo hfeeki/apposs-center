@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Backend::BaseController < InheritedResources::Base
 
   before_filter :sso_auth

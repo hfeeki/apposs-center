@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Permission < ActiveRecord::Base
   attr_accessible :machines, :operation_templates
   attr_accessible :app_id, :name

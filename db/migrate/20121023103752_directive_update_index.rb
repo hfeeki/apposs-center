@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class DirectiveUpdateIndex < ActiveRecord::Migration
   def up
     add_index :directives, [:room_id, :state]

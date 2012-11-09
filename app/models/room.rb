@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Room < ActiveRecord::Base
   has_many :machines, :dependent => :nullify
   validates_uniqueness_of :name

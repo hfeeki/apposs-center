@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class DirectiveRefers < ActiveRecord::Migration
 
   def change

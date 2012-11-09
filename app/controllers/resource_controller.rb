@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class ResourceController < InheritedResources::Base
 
   layout false

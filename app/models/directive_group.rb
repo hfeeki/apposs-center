@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class DirectiveGroup < ActiveRecord::Base
 
   validates_uniqueness_of :name

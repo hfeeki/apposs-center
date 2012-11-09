@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 
 module ModelHelpers
   def app_by_name name

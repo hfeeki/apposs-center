@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 
 # 操作模板，所有的运维操作都基于一个操作模板来执行
 class OperationTemplate < ActiveRecord::Base

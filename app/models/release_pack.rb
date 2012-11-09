@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ReleasePack < ActiveRecord::Base
 
   NAME = 'VERSION'

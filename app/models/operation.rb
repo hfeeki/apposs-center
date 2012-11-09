@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 
 # 运维操作的实例，代表一次运维操作
 class Operation < ActiveRecord::Base

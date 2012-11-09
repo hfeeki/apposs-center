@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 Apposs::Application.routes.draw do
 

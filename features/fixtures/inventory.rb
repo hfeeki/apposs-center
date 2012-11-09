@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 logger = ActiveRecord::Base.logger
 ActiveRecord::Base.logger = nil
 

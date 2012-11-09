@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require './config/environment'
 
 room = Room.find_or_create_by_name 'local'

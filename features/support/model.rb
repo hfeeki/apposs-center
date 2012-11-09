@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module ModelHelpers
   def find_app name
     app = App.reals.where(:name => name).first

@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 # 目前仅支持 application/json 
 class ServiceController < ActionController::Base
 

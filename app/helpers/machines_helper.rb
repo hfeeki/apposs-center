@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 module MachinesHelper
   def machine_actions machine
     normal = (machine.state == 'normal')

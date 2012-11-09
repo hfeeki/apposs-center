@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 
 # 在一台机器上运行的一个原子指令实例，指令本身的生命周期用state_machine进行了约定
 # 大部分原子指令从属于一个操作，某些特殊的原子指令独立运行，此时 operation_id 为

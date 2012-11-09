@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class MachinesController < ResourceController
 
   def change_user

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class PermissionsController < ResourceController
 
   before_filter :authenticate_pe!

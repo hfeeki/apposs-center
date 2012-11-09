@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 module OperationTemplatesHelper
   def draggable_item d_template,checked
     raw %Q{
