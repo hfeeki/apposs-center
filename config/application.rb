@@ -26,7 +26,7 @@ module Apposs
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
 
-    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+    # config.action_mailer.default_url_options = { :host => 'localhost:3000' }
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -57,7 +57,8 @@ module Apposs
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
     ActiveRecord::Base.include_root_in_json = false
-    config.logger = Logger.new(config.paths['log'].first,'daily')
+
+    # config.logger = Logger.new(config.paths['log'].first,'daily')
     config.adapter = AppossSimpleAdapter
   end
 end
