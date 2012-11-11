@@ -85,6 +85,17 @@ class ServiceController < ActionController::Base
     end
   end
 
+  def machines
+    machine = Machine.where( params.slice :host,:name ).first
+    if @current_user.owned_machines(machine.app).include? machine
+      respond_with machine
+    elsif @current_user.is_a? Reader
+      respond_with machine
+    else
+      head :unauthorized
+    end
+  end
+
   private
   def auth
     authenticate_or_request_with_http_basic do |email, password|
