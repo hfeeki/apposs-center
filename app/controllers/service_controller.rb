@@ -2,7 +2,7 @@
 # 目前仅支持 application/json 
 class ServiceController < ActionController::Base
 
-  WHITE_LIST=['md5sum','curl -i','rpm -qa','ulimit -n']
+  WHITE_LIST=['md5sum','curl','rpm -qa','ulimit']
   respond_to :json
 
   before_filter :auth
