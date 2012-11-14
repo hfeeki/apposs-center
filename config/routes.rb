@@ -31,6 +31,18 @@ Apposs::Application.routes.draw do
   end
 
   resources :machines do
+    member do
+      put :change_env
+      put :reset
+      put :pause
+      put :interrupt
+      put :clean_all
+      put :reconnect
+      put :unlock
+      get :directives
+      get :old_directives
+    end
+
     collection do
       post :change_user
       get :reload
@@ -75,19 +87,6 @@ Apposs::Application.routes.draw do
     get :upload_properties, :on => :collection
   end
 
-  resources :machines do
-    member do
-      put :change_env
-      put :reset
-      put :pause
-      put :interrupt
-      put :clean_all
-      put :reconnect
-      get :directives
-      get :old_directives
-    end
-  end
-  
   resources :operation_templates
   
   resources :operations do

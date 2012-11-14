@@ -1,0 +1,2 @@
+info('这台服务器的信息将委托cmdb管理，PE不再维护：<%="#{@machine.name} - #{@machine.host}" %>');
+$("#machines_<%=@machine.id %>").html('<%= escape_javascript(render "item", machine: @machine) %>');

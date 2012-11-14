@@ -60,7 +60,12 @@ class MachinesController < ResourceController
     @machine = machine_by_id
     @directive = @machine.send_reconnect
   end
-  
+
+  def unlock
+    @machine = machine_by_id
+    @machine.unlock
+  end
+
   def directives
     @directives = machine_by_id.directives.without_state(:done).id_desc
   end

@@ -57,6 +57,8 @@ zh-CN:
         password: '密码'
         room: '所属机房'
         app: '所属应用'
+        port: '端口'
+        env: '运行环境'
       role:
         name: '角色名'
       room:

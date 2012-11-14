@@ -66,6 +66,10 @@ class Machine < ActiveRecord::Base
     inner_directive 'machine|clean_all'
   end
 
+  def unlock
+    self.update_attribute :locked, nil
+  end
+
   def clean_all
     directives.without_state(:done).each{|directive|
       if not directive.control?

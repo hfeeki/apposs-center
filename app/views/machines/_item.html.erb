@@ -35,4 +35,11 @@
                     <% end %>
                   </div>
                 </td>
+                <td>
+                  <% if machine.locked? %>
+                    手工维护，禁止同步
+                    <%=link_to '取消', unlock_machine_path(machine), remote: true, method: :put %>
+                  <% end %>
+                  &nbsp;
+                </td>
 
