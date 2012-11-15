@@ -23,7 +23,6 @@
     <link href="/images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
   </head>
   <body>
-
     <div class="navbar navbar-top">
       <div class="navbar-inner">
         <div class="container">
@@ -40,6 +39,7 @@
                   <li id="app_nav_<%=app.id %>"><%=link_to app, app_path(app),:remote => true %></li>
                 <% } %>
               </ul>
+
             </div>
             <div class="span pull-right">
               <i class="icon-user"></i> 欢迎 <%= current_user.email.split('@')[0] %><br />
@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <div id="app" class="container-fluid">
+    <div id="main" class="container-fluid">
       <%= yield %>
       <footer>
       <p>&copy; Company 2012</p>

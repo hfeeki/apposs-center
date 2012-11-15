@@ -18,6 +18,7 @@ group :assets do
   gem 'coffee-rails', ' ~> 3.2.1'
   gem 'uglifier', ' >= 1.0.3'
 end
+gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 
 gem "rails-settings-cached"
@@ -75,7 +76,6 @@ gem "inherited_resources"
 
 gem "jquery-rails"
 gem "jquery-ui-rails"
-gem 'rails3-jquery-autocomplete'
 gem 'acts-as-taggable-on'
 
 gem 'resque', '>=1.21', :require => 'resque/server'

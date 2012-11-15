@@ -1,12 +1,12 @@
 //顶部显示瞬时消息
 function msg(msg,millisecond) {
-  $('#app').before('<div class="alert"><button class="close" data-dismiss="alert">x</button><pre>'
+  $('#main').before('<div class="alert"><button class="close" data-dismiss="alert">x</button><pre>'
       + msg + '</pre></div>');
 }
 
 function info(msg,millisecond) {
   var new_node = $('<div class="alert info" style="display:none"><button class="close" data-dismiss="alert">x</button><pre>'
-      + msg + '</pre></div>').insertBefore('#app');
+      + msg + '</pre></div>').insertBefore('#main');
   new_node.slideDown(500);
   setTimeout(
       function(){ 
@@ -15,6 +15,20 @@ function info(msg,millisecond) {
         });
       }, millisecond || 2500
   );
+}
+
+function typeahead(expr) {
+  $(expr).typeahead({
+    source: function(query, process) {
+      $.get(
+        $(this)[0].$element[0].dataset.link,
+        {query: query},
+        function(json) {
+          process(json)
+        }
+      );
+    }
+  });
 }
 
 $(function() {
@@ -127,7 +141,7 @@ $(function() {
     }
     return application.stopEverything(e);
   });
-  
+
   //简化a标签组，用父节点的refer_to指明涉及的内容
   $('div[refer_to] a[select]').live('click', function(e) {
     var node = $(e.currentTarget);

@@ -4,11 +4,15 @@
   <%= form_for :simple_form, 
     :as => :get, :remote => true,
     :url => load_other_directive_templates_path,
-    :html => {:style => 'display:inline', :class => 'form-inline'} do |f| %>
-      <%=autocomplete_field_tag :email, '', search_autocomplete_user_email_path, placeholder: '你想导入谁的指令，请输入email' %>
-      <%=f.submit '导入' %>
-      <%=link_to " ", new_resource_path, :remote => true, :class => 'icon-plus', :title => '新建指令' %>
-    <% end %>
+    :html => {class:'form-search'} do |f| %>
+      <div class="pull-right">
+        <input name="email" type='text' data-provide="typeahead" 
+          data-link="/search/autocomplete_user_email" autocomplete="off"
+          placeholder="你想导入谁的指令，请输入email" />
+        <%=f.submit '导入', class: 'btn' %>
+      </div>
+  <% end %>
+  <%=link_to "新建指令", new_resource_path, :remote => true, :class => 'icon-plus' %>
   <table class="table table-condensed">
     <thead>
       <tr>
@@ -19,7 +23,7 @@
       </tr>
     </thead>
     <tbody>
-      <% collection.each do |resource| %>
+      <% current_user.directive_templates.each do |resource| %>
         <tr>
           <td><%=resource.id %></td>
           <td><%=resource.alias %></td>
@@ -33,3 +37,4 @@
     </tbody>
   </table>
 </div>
+

@@ -11,7 +11,7 @@ class Machine < ActiveRecord::Base
   has_many :directives
 
   validates_inclusion_of :port,:in => 1..65535,:message => "port必须在1到65535之间"
-  validates_presence_of :name
+  validates_presence_of :name,:host
 
   before_create :fulfill_default
   before_destroy :clean_all # 清理这个机器时要中止正在执行的指令
@@ -19,9 +19,6 @@ class Machine < ActiveRecord::Base
 
   def fulfill_default
     self.app = self.env.app if (self.app.nil? && self.env)
-    if self.host.nil? or self.host.empty?
-      self.host = self.name
-    end
   end
 
   state_machine :state, :initial => :normal do

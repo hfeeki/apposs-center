@@ -2,7 +2,6 @@
   msg('<ul class="errors"><%=raw resource.errors.to_a.collect{|msg| content_tag :li, msg}.join %></ul>');
 <% else %>
   info("已保存！<%=@info %>");
-  $("#zone").html('<%= escape_javascript(
-  render 'collection', :collection => current_user.directive_templates
-  ) %>');
+  $("#main").html('<%= escape_javascript(render 'collection') %>');
+  typeahead("input[data-provide]");
 <% end %>
