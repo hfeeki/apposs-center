@@ -36,9 +36,26 @@
                   </div>
                 </td>
                 <td>
+                  <%= form_for :simple_form, 
+                    :method => :put, :remote => true,
+                    :url => change_app_machine_path(machine),
+                    :html => {class:'form-search'} do |f| %>
+                    <div class="pull-right">
+                      <input name="name" type='text' 
+                        class="input-medium"
+                        data-provide="typeahead" 
+                        data-link="/search/app_by_name" 
+                        autocomplete="off"
+                        placeholder="填入要分配的应用名" />
+                      <%=f.submit '更改应用', class: 'btn' %>
+                    </div>
+                  <% end %>
+                </td>
+                <td>
                   <% if machine.locked? %>
-                    手工维护，禁止同步
-                    <%=link_to '取消', unlock_machine_path(machine), remote: true, method: :put %>
+                    <strong>手工维护，禁止同步
+                      <%=link_to '取消', unlock_machine_path(machine), remote: true, method: :put %>
+                    </strong>
                   <% end %>
                   &nbsp;
                 </td>

@@ -29,6 +29,14 @@ class MachinesController < ResourceController
     @machine.update_attribute :env, env_obj
   end
   
+  def change_app
+    @machine = machine_by_id
+    @app = App.reals.where(name: params[:name]).first
+    @result = if @app
+                @machine.reassign @app, true
+              end
+  end
+  
   def reload
     MachineLoader.load current_app
     respond_to do |format|

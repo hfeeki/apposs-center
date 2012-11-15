@@ -1,0 +1,5 @@
+<% if @result %>
+  info("<%='机器 %s 现在属于 %s ！' % [@machine.name, @app.name] %>");
+  $("#container").html('<%= escape_javascript(render 'collection') %>');
+  typeahead("input[data-provide]");
+<% end %>

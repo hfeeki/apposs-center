@@ -3,4 +3,5 @@
 <% else %>
   info("保存成功！");
   $("#container").html('<%= escape_javascript(render 'collection') %>');
+  typeahead("input[data-provide]");
 <% end %>

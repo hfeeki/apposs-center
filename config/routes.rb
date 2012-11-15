@@ -41,6 +41,7 @@ Apposs::Application.routes.draw do
       put :unlock
       get :directives
       get :old_directives
+      put :change_app
     end
 
     collection do

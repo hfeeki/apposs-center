@@ -29,15 +29,15 @@ class Machine < ActiveRecord::Base
   end
 
   # 重新分配machine的应用
-  def reassign app_id, force = false
+  def reassign other_app, force = false
     return false if (app && app.locked? && !force) 
-    app = App.find app_id
+    other_app = App.find other_app if other_app.is_a? Fixnum
     transaction do
       self.directives.each do |dd|
         dd.update_attribute :operation_id, Operation::DEFAULT_ID
       end
-      self.update_attribute(:app_id, app.id)
-      self.update_attribute(:env_id, app.envs[(self.env.try(:name)||'online').to_sym,true].id)
+      self.update_attribute(:app_id, other_app.id)
+      self.update_attribute(:env_id, other_app.envs[(self.env.try(:name)||'online').to_sym,true].id)
     end
   end
 
