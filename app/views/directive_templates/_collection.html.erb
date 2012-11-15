@@ -7,7 +7,7 @@
     :html => {class:'form-search'} do |f| %>
       <div class="pull-right">
         <input name="email" type='text' data-provide="typeahead" 
-          data-link="/search/autocomplete_user_email" autocomplete="off"
+          data-link="/search/user_by_email" autocomplete="off"
           placeholder="你想导入谁的指令，请输入email" />
         <%=f.submit '导入', class: 'btn' %>
       </div>

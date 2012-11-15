@@ -25,7 +25,13 @@ GIT
 GIT
   remote: git://github.com/taobao/apposs_simple_adapter.git
   revision: 27b130ffd3d66e803fa6f46973de738c62565e11
+  remote: git@github.com:fsword/redis-search.git
+  revision: 73469299647f9a87fbe79a4c35e43abc3f4b2d99
   specs:
+    redis-search (0.9.0)
+      chinese_pinyin (>= 0.3.0)
+      redis (>= 2.1.1)
+      redis-namespace (>= 1.0.2)
     apposs_simple_adapter (0.0.1)
       jquery-rails
       omniauth
@@ -80,6 +86,7 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.3.2)
       ffi (~> 1.0.6)
+    chinese_pinyin (0.4.1)
     coderay (1.0.6)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -249,6 +256,7 @@ GEM
       redis-namespace (~> 1.0)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
+    rmmseg-cpp-huacnlee (0.2.9)
     rspec (2.10.0)
       rspec-core (~> 2.10.0)
       rspec-expectations (~> 2.10.0)
@@ -337,6 +345,7 @@ DEPENDENCIES
   arel
   brakeman!
   capybara
+  chinese_pinyin
   coffee-rails (~> 3.2.1)
   cucumber-rails
   database_cleaner
@@ -359,7 +368,9 @@ DEPENDENCIES
   rails (= 3.2.6)
   rails-settings-cached
   rake
+  redis-search!
   resque (>= 1.21)
+  rmmseg-cpp-huacnlee
   rspec
   rspec-expectations
   rspec-rails

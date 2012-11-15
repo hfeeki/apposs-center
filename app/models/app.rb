@@ -1,27 +1,23 @@
 # -*- encoding : utf-8 -*-
 class App < ActiveRecord::Base
-
   acts_as_tree
+
+  include Redis::Search
 
   scope :reals, where(:virtual => [nil,false], :state => 'running')
 
   # People
   has_many :acls, :as => :resource, :dependent => :destroy, :class_name => 'Stakeholder'
-
   has_many :operators, :through => :acls, :source => :user
-
   has_many :permissions
-
   has_many :release_packs
-
   has_many :softwares
-
   # Machine
   has_many :machines, :dependent => :destroy
-
   has_many :operation_templates
-  
   has_many :operations
+
+  redis_search_index :title_field => :name, :prefix_index_enable => true, :condition_fields => [:locked, :virtual]
 
   def ops
     User.where(

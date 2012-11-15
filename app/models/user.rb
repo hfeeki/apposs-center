@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 # -*- encoding : utf-8 -*-
->>>>>>> 统一设定encoding头部
 class User < ActiveRecord::Base
 #  # Include default devise modules. Others available are:
 #  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -9,7 +6,10 @@ class User < ActiveRecord::Base
 #         :recoverable, :rememberable, :trackable, :validatable
 #
 #  # Setup accessible (or protected) attributes for your model
-#  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessor :password, :password_confirmation
+  include Redis::Search
+
+  before_save :encrypt_password
 
   has_many :acls, :class_name => 'Stakeholder' do
     def [] name
@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
   
   has_many :directive_groups, :foreign_key => 'owner_id'
 
+  redis_search_index :title_field => :email, :prefix_index_enable => true
+  
   def load_directive_templates new_directive_templates
     new_directive_templates.each do |dt|
       directive_templates << dt.dup
