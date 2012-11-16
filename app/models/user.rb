@@ -36,9 +36,28 @@ class User < ActiveRecord::Base
     directive_templates
   end
 
-  def grant role, resource = nil
+  def encrypt_password
+    if self.password.present?
+      self.password_salt = BCrypt::Engine.generate_salt
+      self.encrypted_password = BCrypt::Engine.hash_secret(password, password_salt)
+      self.password = nil
+      self.password_confirmation = nil
+    end
+  end
+
+  def self.authenticate email, password
+    user = User.find_by_email(email)
+    if user && user.encrypted_password == BCrypt::Engine.hash_secret(password, user.password_salt)
+      user
+    else
+      nil
+    end
+
+  end
+
+  def grant role, resource = System.instance
+    return false if resource.nil?
     role = Role[role] if role.is_a?(String)
-    resource = System.instance if resource.nil?
     self.acls.create(
       :role_id => role.id, 
       :resource_type => resource.class.to_s, 

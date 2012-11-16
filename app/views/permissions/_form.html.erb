@@ -1,6 +1,6 @@
 <%= form_for(resource,
     :as => "#{resource_instance_name.to_s.downcase}",
-    :url => resource.new_record? ? app_permissions_path(current_app.id) : app_permission_path(current_app.id, resource),
+    :url => resource.new_record? ? permissions_path : permission_path(resource),
     :html => { 
       :method => (resource.new_record? ? "post" : "put"),
       :class => 'form-horizontal'

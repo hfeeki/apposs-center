@@ -30,6 +30,12 @@ class AppsController < BaseController
       format.js
     end
   end
+
+  def ops
+    respond_to do |format|
+      format.js
+    end
+  end
     
   def operations
     @app = current_app

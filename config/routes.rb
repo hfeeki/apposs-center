@@ -30,6 +30,9 @@ Apposs::Application.routes.draw do
     post :add_all, :on => :collection
   end
 
+  resources :permissions
+  resources :ops
+
   resources :machines do
     member do
       put :change_env
@@ -54,13 +57,13 @@ Apposs::Application.routes.draw do
     member do
       get :intro
       get :machines
+      get :ops
       get :operations
+      get :rooms
+      get :old_operations
     end
 
     resources :envs
-    resources :ops
-    resources :permissions
-
 
     resources :operation_templates do
       member do
@@ -70,13 +73,6 @@ Apposs::Application.routes.draw do
       end
     end
     resources :softwares
-
-   
-    member do
-      get :rooms
-      get :operations
-      get :old_operations
-    end
   end
   
   resources :directives do

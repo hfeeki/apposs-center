@@ -1,0 +1,17 @@
+      <div class="row-fluid">  
+        <div class="span3">    
+          <div class="well sidebar-nav">  
+            <% if current_user.is_pe? current_app %>
+              <ul class="nav nav-list">       
+                <li class="nav-header">应用设置</li>
+                <!--li><%=link_to '管理软件包', app_softwares_path(current_app), :remote => true %></li-->
+                <li><%=link_to '管理操作权限', permissions_path, :remote => true %></li>
+                <li><%=link_to '设定操作员', ops_path, :remote => true %></li>
+              </ul>            
+            <% end %>          
+          </div>               
+        </div><!--/.well -->   
+        <div id="zone" class="span9">   
+        </div>                 
+      </div><!--/span-->       
+

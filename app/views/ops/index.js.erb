@@ -1,3 +1,2 @@
-$("#zone").html('<%= escape_javascript(
-  render 'collection', :collection => collection, :parent_id => params[:app_id]
-) %>');
+$("#zone").html('<%= escape_javascript( render 'collection' ) %>');
+typeahead("input[data-provide]");
