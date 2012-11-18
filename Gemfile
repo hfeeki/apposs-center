@@ -9,7 +9,7 @@ gem 'apposs_simple_adapter', :git=>'git://github.com/taobao/apposs_simple_adapte
 gem 'apposs_file', :git=>'git://github.com/taobao/apposs_file.git'
 # gem 'apposs_file', :path => '/home/john/projects/github/apposs/apposs_file'
 
-gem 'brakeman', :git=>'git://github.com/fsword/brakeman.git'
+gem "bcrypt-ruby", :require => "bcrypt"
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -24,7 +24,6 @@ gem 'twitter-bootstrap-rails'
 gem "rails-settings-cached"
 gem "seed-fu"
 # Use unicorn as the web server
-# gem 'unicorn'
 
 gem "arel"
 
@@ -32,6 +31,9 @@ group :development,:test,:cucumber do
   gem "pry"
   gem "pry-doc"
   gem "pry-nav"
+end
+
+group :test,:cucumber do
   gem "guard"
   gem "guard-rspec"
   gem "rspec-rails"
@@ -50,10 +52,15 @@ group :development,:test,:cucumber do
 
   gem "ruby-graphviz"
 end
+
+group :production do
+  gem 'brakeman', :git=>'git://github.com/fsword/brakeman.git'
+  gem 'unicorn'
+end
+
 gem 'chinese_pinyin'
 gem 'rmmseg-cpp-huacnlee'
 gem 'redis-search', :git => 'git@github.com:fsword/redis-search.git'
-gem "simplecov"
 gem "inherited_resources_views"
 gem "inherited_resources"
 
@@ -69,5 +76,5 @@ gem 'therubyracer'
 gem "json"
 gem "state_machine"
 gem "acts_as_tree"
-gem "omniauth-google-oauth2"
-gem "will_paginate", "~> 3.0.pre4"
+#gem "omniauth-google-oauth2"
+#gem "will_paginate", "~> 3.0.pre4"
