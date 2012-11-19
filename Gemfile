@@ -60,7 +60,7 @@ end
 
 gem 'chinese_pinyin'
 gem 'rmmseg-cpp-huacnlee'
-gem 'redis-search', :git => 'git@github.com:fsword/redis-search.git'
+gem 'redis-search', :git => 'git://github.com/fsword/redis-search.git'
 gem "inherited_resources_views"
 gem "inherited_resources"
 

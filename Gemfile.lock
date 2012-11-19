@@ -16,6 +16,7 @@ GIT
       terminal-table (~> 1.4)
 
 GIT
+<<<<<<< HEAD
   remote: git://github.com/taobao/apposs_file.git
   revision: 48bb3499cee2b5eb4a8612f6bc588a1795fc1aaa
   specs:
@@ -26,17 +27,36 @@ GIT
   remote: git://github.com/taobao/apposs_simple_adapter.git
   revision: 27b130ffd3d66e803fa6f46973de738c62565e11
   remote: git@github.com:fsword/redis-search.git
+=======
+  remote: git://github.com/fsword/redis-search.git
+>>>>>>> 使用公开地址获取 redis-search gem
   revision: 73469299647f9a87fbe79a4c35e43abc3f4b2d99
   specs:
     redis-search (0.9.0)
       chinese_pinyin (>= 0.3.0)
       redis (>= 2.1.1)
       redis-namespace (>= 1.0.2)
+<<<<<<< HEAD
     apposs_simple_adapter (0.0.1)
       jquery-rails
       omniauth
       omniauth-google-oauth2
       rails (~> 3.2.5)
+=======
+
+GIT
+  remote: git://github.com/taobao/apposs_file.git
+  revision: 48bb3499cee2b5eb4a8612f6bc588a1795fc1aaa
+  specs:
+    apposs_file (0.0.1)
+      rails (~> 3.2.3)
+
+GIT
+  remote: git@gitlab.taobao.ali.com:apposs-tb-adapter.git
+  revision: d3d45dfb0ad44bfc8e328d00522cda869c4f7fcb
+  specs:
+    apposs-tb-adapter (0.0.1)
+>>>>>>> 使用公开地址获取 redis-search gem
 
 GEM
   remote: http://rubygems.org/
