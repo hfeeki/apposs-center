@@ -44,7 +44,7 @@ describe User do
     it "列举所负责的机器" do
       app = App.find 1
 
-      app.machines.first.update_attribute :env, app.envs[:pre,true]
+      app.machines.first.update_attributes :env => app.envs[:pre,true]
       @u.owned_machines(app).should == app.machines
       @u.ungrant(Role::PE, app)
       @u.owned_machines(app).count.should == 3

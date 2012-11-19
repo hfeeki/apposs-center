@@ -18,7 +18,7 @@ describe Role do
 
   it "关联user对象" do
     user = User.first
-    user.grant(Role::Admin,nil)
+    user.grant(Role::Admin)
     user.is_admin?.should be_true
 
     role = Role[Role::Admin]

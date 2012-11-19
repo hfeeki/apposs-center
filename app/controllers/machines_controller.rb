@@ -15,7 +15,7 @@ class MachinesController < ResourceController
     @failed_machines = current_user.
                                     owned_machines(App.find(params[:app_id])).
                                     where(:id => @machine_ids).inject([]) do |arr, machine|
-      if machine.update_attribute :user, params[:data]
+      if machine.update_attributes user: params[:data]
         arr
       else
         arr << machine
@@ -26,7 +26,7 @@ class MachinesController < ResourceController
   def change_env
     @machine = machine_by_id
     env_obj = @machine.app.envs.find params['env_id']
-    @machine.update_attribute :env, env_obj
+    @machine.update_attributes env: env_obj
   end
   
   def change_app

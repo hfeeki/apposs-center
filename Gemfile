@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.7'
 gem 'rake'
 
 gem 'apposs_simple_adapter', :git=>'git://github.com/taobao/apposs_simple_adapter.git'

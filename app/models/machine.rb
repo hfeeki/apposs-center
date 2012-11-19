@@ -34,7 +34,7 @@ class Machine < ActiveRecord::Base
     other_app = App.find other_app if other_app.is_a? Fixnum
     transaction do
       self.directives.each do |dd|
-        dd.update_attribute :operation_id, Operation::DEFAULT_ID
+        dd.update_attributes operation_id: Operation::DEFAULT_ID
       end
       self.update_attribute(:app_id, other_app.id)
       self.update_attribute(:env_id, other_app.envs[(self.env.try(:name)||'online').to_sym,true].id)
@@ -64,7 +64,7 @@ class Machine < ActiveRecord::Base
   end
 
   def unlock
-    self.update_attribute :locked, nil
+    self.update_attributes locked: nil
   end
 
   def clean_all

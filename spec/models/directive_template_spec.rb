@@ -8,7 +8,7 @@ describe DirectiveTemplate do
   before :each do
     env = App.first.envs['线上']
     env.properties[:env_id].should == '1'
-    @machine = env.machines.create :name => 'for_directive_test', :port => 22
+    @machine = env.machines.create :name => 'for_directive_test', :host => 'for_directive_test', :port => 22
     @data = {
       :machine => @machine,
       :params => env.enable_properties
