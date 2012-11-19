@@ -83,7 +83,7 @@ class App < ActiveRecord::Base
     "#{Rails.root}/private/data/#{id}"
   end
 
-  def download_folder
+  def download_url
     "#{Rails.configuration.base_url}/data/#{id}"
   end
 

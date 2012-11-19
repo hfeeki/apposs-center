@@ -46,7 +46,7 @@ GIT
 
 GIT
   remote: git://github.com/taobao/apposs_file.git
-  revision: 48bb3499cee2b5eb4a8612f6bc588a1795fc1aaa
+  revision: 53facaea77ff052f38da3a08ee3080fc28578f64
   specs:
     apposs_file (0.0.1)
       rails (~> 3.2.3)
