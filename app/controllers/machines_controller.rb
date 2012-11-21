@@ -9,18 +9,26 @@ class MachinesController < ResourceController
     create!
   end
 
-  def change_user
-    @machine_ids = check_machine_ids(params[:machine_ids])
-    
-    @failed_machines = current_user.
-                                    owned_machines(App.find(params[:app_id])).
-                                    where(:id => @machine_ids).inject([]) do |arr, machine|
-      if machine.update_attributes user: params[:data]
-        arr
-      else
-        arr << machine
-      end
+  def destroy
+    machine = current_app.machines.find(params[:id])
+    if machine.locked?
+      machine.locked = false
+      @result = machine.destroy
+      respond_with machine
     end
+  end
+
+  def item
+    render :partial => 'item', :locals => { machine: machine_by_id }
+  end
+
+  def app_item
+    render :partial => 'app_item', :locals => { machine: machine_by_id }
+  end
+
+  def change_user
+    @machine = machine_by_id params[:pk]
+    @machine.update_attributes user: params[:value]
   end
   
   def change_env
@@ -91,7 +99,7 @@ class MachinesController < ResourceController
     (machine_ids||[]).collect { |s| s.to_i }.uniq
   end
   
-  def machine_by_id
-    current_app.machines.find(params[:id])
+  def machine_by_id id=params[:id]
+    current_app.machines.find(id)
   end
 end

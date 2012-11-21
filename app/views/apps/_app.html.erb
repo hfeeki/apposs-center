@@ -1,18 +1,18 @@
-      <div class="row-fluid">
-        <ul id="menu" class="nav nav-tabs">
-          <li id="m_intro" class="active">
-          <%=link_to '概况', intro_app_path(app), remote: true %>
-          </li>
-          <% if current_user.is_pe? app %>
+      <% if current_user.is_pe? app %>
+        <div class="row-fluid">
+          <ul id="menu" class="nav nav-tabs">
+            <li id="m_intro" class="active">
+            <%=link_to '概况', intro_app_path(app), remote: true %>
+            </li>
             <li id="m_machines">
             <%=link_to '服务器管理', machines_path, remote: true %>
             </li>
             <li id="m_permissions">
             <%=link_to '应用设置', ops_app_path(app), remote: true %>
             </li>
-          <% end %>
-        </ul>
-      </div>
+          </ul>
+        </div>
+      <% end %>
       <div id="container">
         <%= render 'intro', :app => app %>
       </div>

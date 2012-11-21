@@ -1,18 +1,13 @@
       <div class="row-fluid">
         <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">更新配置
-              <div class="btn-group">
-                <% app.envs.each do |env| %>
-                  <button class="btn">
-                    <i class="icon-edit"></i>
-                    <%=link_to env.name, edit_app_env_path(app,env), :target => 'blank' %>
-                  </button>
+          <div class="well">
+            <p><b>配置</b>
+              <% current_app.envs.each do |env| %>
+                <%=link_to edit_app_env_path(current_app,env), :class=> 'btn', :target => 'blank' do %>
+                  <i class="icon-edit"></i> <%=env.name %>
                 <% end %>
-              </div>
-              </li>
-            </ul>
+              <% end %>
+            </p>
           </div>
           <div class="well-large sidebar-nav panel">
             <legend style="font-size:14px">操作面板</legend>
@@ -20,16 +15,17 @@
                        :url => '#',
                        :remote => true,
                        :html => { :name => 'execute_form', :method => "post" } ) do |f| %>
+            <input type="hidden" name="data" />
             <div id="machines" class="well sidebar-nav">
-              <%=render "/apps/machines", :app => app %>
+              <%=render "machines" %>
             </div>
             <div id="operation_templates" class="well sidebar-nav">
-              <%=render "/operation_templates/collection", :parent => app %>
+              <%=render "/operation_templates/collection", :parent => current_app %>
             </div>
           <% end%>
           </div>
         </div><!--/.well -->
         <div id="zone" class="span9">
-          <%=render "/operations/collection", :parent => app %>
+          <%=render "/operations/collection", :parent => current_app %>
         </div> 
       </div><!--/span-->

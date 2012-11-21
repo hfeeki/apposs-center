@@ -14,7 +14,7 @@ class Machine < ActiveRecord::Base
   validates_presence_of :name,:host
 
   before_create :fulfill_default
-  before_destroy :clean_all # 清理这个机器时要中止正在执行的指令
+  before_destroy :check_lock, :clean_all # 清理这个机器时要中止正在执行的指令
 
 
   def fulfill_default
@@ -39,6 +39,10 @@ class Machine < ActiveRecord::Base
       self.update_attribute(:app_id, other_app.id)
       self.update_attribute(:env_id, other_app.envs[(self.env.try(:name)||'online').to_sym,true].id)
     end
+  end
+
+  def check_lock
+    raise 'locked machine cannot destroy' if locked?
   end
 
   def send_pause

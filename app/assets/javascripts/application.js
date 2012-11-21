@@ -20,6 +20,7 @@
 //= require twitter/bootstrap/bootstrap-collapse
 //= require twitter/bootstrap/bootstrap-carousel
 //= require twitter/bootstrap/bootstrap-typeahead
+//= require bootstrap-editable
 //= require rails_ext
 // require_tree .
 

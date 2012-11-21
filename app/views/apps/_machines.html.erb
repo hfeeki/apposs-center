@@ -1,17 +1,16 @@
-            <input type="hidden" name="data" />
             <ul class="nav nav-list">
               <li class="nav-header">
                 <table><tr>
                     <td>
                       服务器
-                      <%=link_to ' ', machines_app_path(app.id), 
+                      <%=link_to ' ', machines_app_path(current_app.id), 
                         remote: true, class: 'icon-refresh', title: '刷新' %>
                     </td>
                     <td>
-            <div refer_to="machines">
-              <a href="javascript:void 0;" select="all">全选</a>
-              <a href="javascript:void 0;" select="none">清除</a>
-            </div>
+                      <div refer_to="machines">
+                        <a href="javascript:void 0;" select="all">全选</a>
+                        <a href="javascript:void 0;" select="none">清除</a>
+                      </div>
                     </td>
                 </tr></table>
               </li>
@@ -24,8 +23,8 @@
                 </thead>
                 <tbody id="machines">
                 <% current_user.owned_machines(current_app).each{|machine|%>
-                  <tr id="machines_<%=machine.id %>"> 
-                    <%=render '/apps/machine_item', :machine => machine, :app => app %>
+                  <tr id="machines_<%=machine.id %>" box-href="<%=app_item_machine_path(machine) %>">
+                    <%=render '/machines/app_item', :machine => machine %>
                   </tr>
               <% }%>
               </tbody>

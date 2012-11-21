@@ -1,3 +1,5 @@
 info("重新装载完毕！");
 $("#container").html('<%= escape_javascript(render "collection") %>');
 typeahead("input[data-provide]");
+editable('<%=change_user_machines_path %>', '输入登录用户');
+

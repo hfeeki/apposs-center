@@ -31,6 +31,20 @@ function typeahead(expr) {
   });
 }
 
+function editable(url,title){
+  $('.editable').editable({
+      'url': function(params){
+        $.ajax({
+          url: url, data: params, type: 'post', 
+          success: function(data,status,xhrs){
+            eval(data);          
+          }
+        });
+      },
+      'title': title,
+      'name': 'name'
+  });
+}
 $(function() {
   var application;
   $.application = application = {
@@ -124,7 +138,7 @@ $(function() {
     return application.stopEverything(e);
   });
 
-  $('div[box-href],li[box-href]').live('refresh.application', function(e) {
+  $('tr[box-href], div[box-href],li[box-href]').live('refresh.application', function(e) {
     var base_node = $(e.currentTarget);
     application.refresh(
       base_node,

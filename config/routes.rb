@@ -35,6 +35,10 @@ Apposs::Application.routes.draw do
 
   resources :machines do
     member do
+      get :item
+      get :app_item
+      get :directives
+      get :old_directives
       put :change_env
       put :reset
       put :pause
@@ -42,8 +46,6 @@ Apposs::Application.routes.draw do
       put :clean_all
       put :reconnect
       put :unlock
-      get :directives
-      get :old_directives
       put :change_app
     end
 
@@ -52,7 +54,7 @@ Apposs::Application.routes.draw do
       get :reload
     end
   end
-  
+
   resources :apps do
     member do
       get :intro

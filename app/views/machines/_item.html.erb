@@ -5,7 +5,10 @@
                   <%=machine.host %>
                 </td>
                 <td>
-                  <%=machine.user %>
+                  <a class="editable" data-emptytext="默认用户" data-pk="<%=machine.id %>"
+                    href="#" data-inputclass="span6">
+                    <%=machine.user %>
+                  </a>
                 </td>
                 <td>
                   <%=machine.port %>
@@ -36,6 +39,15 @@
                   </div>
                 </td>
                 <td>
+                  <% if machine.locked? %>
+                    <strong>手工维护，忽略自动同步
+                      <%=link_to '取消', unlock_machine_path(machine), remote: true, method: :put, :class => 'btn btn-small btn-inverse', :title => '单击取消手工维护状态，转为系统自动维护', :data => {:confirm => '本操作不可恢复，确定要由系统自动维护吗？'}  %>
+                      <%=link_to '删除', machine_path(machine), remote: true, method: :delete, :class => 'btn btn-small btn-danger', :title => '单击删除本服务器，不可恢复', :data => {:confirm => '本操作不可恢复，确定要删除吗？'} %>
+                    </strong>
+                  <% end %>
+                  &nbsp;
+                </td>
+                <td>
                   <%= form_for :simple_form, 
                     :method => :put, :remote => true,
                     :url => change_app_machine_path(machine),
@@ -50,13 +62,5 @@
                       <%=f.submit '更改应用', class: 'btn' %>
                     </div>
                   <% end %>
-                </td>
-                <td>
-                  <% if machine.locked? %>
-                    <strong>手工维护，禁止同步
-                      <%=link_to '取消', unlock_machine_path(machine), remote: true, method: :put %>
-                    </strong>
-                  <% end %>
-                  &nbsp;
                 </td>
 
