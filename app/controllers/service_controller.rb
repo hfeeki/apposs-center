@@ -16,7 +16,9 @@ class ServiceController < ActionController::Base
         render :status => 404, :text => "room does not exist: #{params[:room_name]}"
       else
         machine = app.envs[:online].machines.new(
-          params[:machine].slice(:host,:name,:port,:user,:password).update(room_id: room.id)
+          params[:machine]
+            .slice(:host,:name,:port,:user,:password)
+            .update(locked: true, room_id: room.id)
         )
 
         if machine.save

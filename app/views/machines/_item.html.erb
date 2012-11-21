@@ -16,6 +16,24 @@
                 <td>
                   <div class="btn-group">
                     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                      <%=machine.room.try :name %>
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <% Room.find_each do |room| %>
+                        <li><%=link_to(
+                          room.name,
+                          change_room_machine_path(machine.id,:room_id => room.id), 
+                          :remote => true,
+                          :method => :put
+                        )%></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                       <%=machine.env %>
                       <span class="caret"></span>
                     </a>

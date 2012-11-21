@@ -40,6 +40,7 @@ Apposs::Application.routes.draw do
       get :directives
       get :old_directives
       put :change_env
+      put :change_room
       put :reset
       put :pause
       put :interrupt

@@ -1,3 +1,2 @@
-info('这台服务器的信息将委托cmdb管理，PE不再维护：<%="#{@machine.name}(#{@machine.host}") %>');
+info('这台服务器的信息将委托cmdb管理，PE不再维护：<%="#{@machine.name}(#{@machine.host})" %>');
 $("#machines_<%=@machine.id %>").trigger('refresh.application');
-editable('<%=change_user_machines_path %>', '输入登录用户');

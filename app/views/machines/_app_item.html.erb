@@ -9,8 +9,8 @@
                     <td>
                       <% if machine.normal? %>
                         <div class="btn-group">
-                          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="icon-off"></i>中止指令
+                          <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="icon-off"></i>停止
                             <span class="caret"></span>
                           </a>
                           <ul class="dropdown-menu">
@@ -27,8 +27,8 @@
                           </ul>
                         </div>
                       <% else %>
-                        <%=link_to(reset_machine_path(machine.id), :remote => true, :method => :put) do %>
-                          <i class="icon-play"></i>继续
+                        <%=link_to(reset_machine_path(machine.id), :remote => true, :method => :put, :class => 'btn btn-small btn-primary') do %>
+                          <i class="icon-play"></i> 继续
                         <% end %>
                       <% end %>
                     </td>

@@ -20,6 +20,8 @@
           <dd><%=f.password_field :password %></dd>
           <dt><%=resource_class.human_attribute_name :env %></dt>
           <dd><%=f.select :env_id, current_app.envs.map{|e| [e.name, e.id]} %></dd>
+          <dt><%=resource_class.human_attribute_name :room %></dt>
+          <dd><%=f.select :room_id, Room.select([:id,:name]).map{|e| [e.name, e.id]} %></dd>
           <dt><%=f.submit '提交' %></dt>
           <dd><input type="reset" value="取消" onclick="$('#machines .form').fadeOut(100);" /></dd>
         </dl>

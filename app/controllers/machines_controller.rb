@@ -19,11 +19,11 @@ class MachinesController < ResourceController
   end
 
   def item
-    render :partial => 'item', :locals => { machine: machine_by_id }
+    @machine = machine_by_id
   end
 
   def app_item
-    render :partial => 'app_item', :locals => { machine: machine_by_id }
+    @machine = machine_by_id
   end
 
   def change_user
@@ -35,6 +35,12 @@ class MachinesController < ResourceController
     @machine = machine_by_id
     env_obj = @machine.app.envs.find params['env_id']
     @machine.update_attributes env: env_obj
+  end
+  
+  def change_room
+    @machine = machine_by_id
+    room = Room.find params['room_id']
+    @machine.update_attributes room: room
   end
   
   def change_app

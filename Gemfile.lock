@@ -53,7 +53,7 @@ GIT
 
 GIT
   remote: git@gitlab.taobao.ali.com:apposs-tb-adapter.git
-  revision: d3d45dfb0ad44bfc8e328d00522cda869c4f7fcb
+  revision: acea1971e5893f8cbf9b9e43d8b8189344ab01b0
   specs:
     apposs-tb-adapter (0.0.1)
 >>>>>>> 使用公开地址获取 redis-search gem

@@ -97,11 +97,16 @@ $(function() {
       }
     },
 
+    //url以js为后缀的代码直接用eval运行
     refresh: function(node,url){
       $.ajax({
         url: url,
         success: function(data,status,xhrs){
-          node.html(data);
+          if(url.indexOf('.js', url.length - 3) == -1){
+            node.html(data);
+          }else{
+            eval(data);
+          }
         }
       });
     },

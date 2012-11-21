@@ -1,3 +1,2 @@
 info("<%='登录用户已改为 %s ，点击重连后将使用新用户执行后续指令！' % [@machine.user] %>");
 $("#machines_<%=@machine.id %>").trigger('refresh.application');
-editable('<%=change_user_machines_path %>', '输入登录用户');

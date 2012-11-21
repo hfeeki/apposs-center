@@ -23,7 +23,7 @@
                 </thead>
                 <tbody id="machines">
                 <% current_user.owned_machines(current_app).each{|machine|%>
-                  <tr id="machines_<%=machine.id %>" box-href="<%=app_item_machine_path(machine) %>">
+                  <tr id="machines_<%=machine.id %>" box-href="<%=app_item_machine_path(machine,:format => 'js') %>">
                     <%=render '/machines/app_item', :machine => machine %>
                   </tr>
               <% }%>
