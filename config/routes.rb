@@ -9,7 +9,9 @@ Apposs::Application.routes.draw do
 
   root :to => 'apps#index'
 
-  get "search/autocomplete_user_email"
+  get "search/user_by_email"
+  get "search/app_by_name"
+  get "search/app_by_name_and_user"
   
   namespace :backend, :module => 'backend' do
     resources :apps do

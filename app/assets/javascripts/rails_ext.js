@@ -19,6 +19,7 @@ function info(msg,millisecond) {
 
 function typeahead(expr) {
   $(expr).typeahead({
+    minLength: 2,
     source: function(query, process) {
       $.get(
         $(this)[0].$element[0].dataset.link,
