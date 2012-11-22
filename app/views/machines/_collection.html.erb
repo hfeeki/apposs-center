@@ -7,7 +7,7 @@
             <div class="pull-right">
               <%=link_to reload_machines_path, remote: true do %>
                 <b class="icon-download-alt">从CMDB同步服务器信息</b>
-              <% end %>
+              <% end unless current_app.locked? %>
             </div>
           </div>
           <div class="form"></div>
