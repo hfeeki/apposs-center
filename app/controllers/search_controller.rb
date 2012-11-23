@@ -12,7 +12,7 @@ class SearchController < BaseController
   end
 
   def app_by_name_and_user
-    respond_with App.reals.where(
+    respond_with App.reals.select(:name).where(
       id: current_user.acls.where(role_id: Role[Role::PE].id).map(&:resource_id)
     ).map(&:name).select{|s| s =~ /^#{params[:query]}/}
   end
