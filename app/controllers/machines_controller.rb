@@ -94,6 +94,7 @@ class MachinesController < ResourceController
   
   def old_directives
     @directives = machine_by_id.directives.where(:state => :done).id_desc
+  end
 
   protected
   def begin_of_association_chain

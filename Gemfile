@@ -70,3 +70,6 @@ gem 'therubyracer'
 gem "json"
 gem "state_machine"
 gem "acts_as_tree"
+
+gem "omniauth-google-oauth2"
+
