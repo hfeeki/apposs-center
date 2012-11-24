@@ -22,7 +22,7 @@
                             <%=link_to template.name[0..18], app_operation_template_path(parent.id,template.id), :remote => true, :title => '显示操作内容' %>
                           </td>
                           <td>
-                            <%=link_to "执行", execute_app_operation_template_path(parent.id,template.id), :form_to => 'execute_form', :data => {:confirm => "系统将执行操作：#{template.name} ，请确认"}, :class => 'btn btn-primary' %>
+                            <%=link_to "执行", execute_app_operation_template_path(parent.id,template.id), :form_to => 'execute_form', :data => {:confirm => "系统将执行操作：#{template.name} ，请确认"}, :class => 'btn btn-small btn-primary' %>
                           </td>
                         </tr>
                       <% end %>
@@ -38,7 +38,7 @@
                             <%=link_to template.name[0..18], app_operation_template_path(parent.id,template.id), :remote => true, :title => '显示操作内容' %>
                           </td>
                           <td>
-                            <%=link_to "分组", group_form_app_operation_template_path(parent.id,template.id), :remote => true, :class => 'btn' %>
+                            <%=link_to "分组", group_form_app_operation_template_path(parent.id,template.id), :remote => true, :class => 'btn btn-small btn-info' %>
                           </td>
                         </tr>
                       <% end %>

@@ -1,0 +1,21 @@
+      <div class="row-fluid">  
+        <div class="span3">    
+          <div class="well sidebar-nav">  
+            <ul class="nav nav-list">       
+              <li class="nav-header">授权管理</li>
+              <li><%=link_to '管理操作权限', permissions_path, :remote => true %></li>
+              <li><%=link_to '设定操作员', ops_path, :remote => true %></li>
+            </ul>
+            <ul class="nav nav-list">
+              <li class="nav-header">其它设置</li>
+              <!--li><%=link_to '管理软件包', app_softwares_path(current_app), :remote => true %></li-->
+              <li>
+                <%=link_to '文件同步设置', apposs_file.file_entries_path(app_id: current_app.id), :remote => true %>
+              </li>
+            </ul>            
+          </div>               
+        </div><!--/.well -->   
+        <div id="zone" class="span9">   
+        </div>                 
+      </div><!--/span-->       
+

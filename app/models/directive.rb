@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 
 # 在一台机器上运行的一个原子指令实例，指令本身的生命周期用state_machine进行了约定
 # 大部分原子指令从属于一个操作，某些特殊的原子指令独立运行，此时 operation_id 为
@@ -25,7 +25,7 @@ class Directive < ActiveRecord::Base
   attr_accessor :params
 
   before_create do
-    if self.pluggable? and self.has_operation?
+    if self.pluggable? and self.operation
       file_entry = AppossFile::FileEntry.where(
         operation_template_id: self.operation.operation_template.id
       ).first
@@ -72,7 +72,7 @@ class Directive < ActiveRecord::Base
     event :download do transition :init => :ready end
     event :invoke do transition :ready => :running end
     event :force_stop do transition :running => :failure end
-    event :error do transition [:init,:running] => :failure end
+    event :error do transition [:init, :ready, :running] => :failure end
     event :ok do transition [:ready, :running] => :done end
     event :ack do transition :failure => :done end
 
@@ -93,11 +93,11 @@ class Directive < ActiveRecord::Base
   end
 
   def fire_operation
-    operation.fire if has_operation?
+    operation.try :fire
   end
 
   def error_fire
-    operation.error if has_operation?
+    operation.try :error
     machine.pause if machine
   end
 
@@ -110,19 +110,14 @@ class Directive < ActiveRecord::Base
   end
 
   def after_complete
-    if has_operation? and operation.directives.without_state(:done).count == 0
+    if operation && operation.directives.without_state(:done).count == 0
       operation.ok || operation.ack
     end
     enable_next
   end
 
   def try_operation_clear
-    operation.error if has_operation?
-  end
-
-  # 独立指令没有对应的操作对象，此时 operation_id 为0
-  def has_operation?
-    operation_id != Operation::DEFAULT_ID
+    operation.try :error
   end
 
   def control?

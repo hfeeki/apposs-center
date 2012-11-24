@@ -1,0 +1,31 @@
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well">
+            <p><b>配置</b>
+              <% current_app.envs.each do |env| %>
+                <%=link_to edit_app_env_path(current_app,env), :class=> 'btn', :target => 'blank' do %>
+                  <i class="icon-edit"></i> <%=env.name %>
+                <% end %>
+              <% end %>
+            </p>
+          </div>
+          <div class="well-large sidebar-nav panel">
+            <legend style="font-size:14px">操作面板</legend>
+          <%= form_for( :operation_templates,
+                       :url => '#',
+                       :remote => true,
+                       :html => { :name => 'execute_form', :method => "post" } ) do |f| %>
+            <input type="hidden" name="data" />
+            <div id="machines" class="well sidebar-nav">
+              <%=render "machines" %>
+            </div>
+            <div id="operation_templates" class="well sidebar-nav">
+              <%=render "/operation_templates/collection", :parent => current_app %>
+            </div>
+          <% end%>
+          </div>
+        </div><!--/.well -->
+        <div id="zone" class="span9">
+          <%=render "/operations/collection", :parent => current_app %>
+        </div> 
+      </div><!--/span-->

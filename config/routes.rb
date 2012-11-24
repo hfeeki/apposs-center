@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 Apposs::Application.routes.draw do
 
@@ -8,7 +9,9 @@ Apposs::Application.routes.draw do
 
   root :to => 'apps#index'
 
-  get "search/autocomplete_user_email"
+  get "search/user_by_email"
+  get "search/app_by_name"
+  get "search/app_by_name_and_user"
   
   namespace :backend, :module => 'backend' do
     resources :apps do
@@ -29,11 +32,43 @@ Apposs::Application.routes.draw do
     post :add_all, :on => :collection
   end
 
-  resources :apps do
-    resources :envs
-    resources :ops
-    resources :permissions
+  resources :permissions
+  resources :ops
 
+  resources :machines do
+    member do
+      get :item
+      get :app_item
+      get :directives
+      get :old_directives
+      put :change_env
+      put :change_room
+      put :reset
+      put :pause
+      put :interrupt
+      put :clean_all
+      put :reconnect
+      put :unlock
+      put :change_app
+    end
+
+    collection do
+      post :change_user
+      get :reload
+    end
+  end
+
+  resources :apps do
+    member do
+      get :intro
+      get :machines
+      get :ops
+      get :operations
+      get :rooms
+      get :old_operations
+    end
+
+    resources :envs
 
     resources :operation_templates do
       member do
@@ -43,19 +78,6 @@ Apposs::Application.routes.draw do
       end
     end
     resources :softwares
-
-    resources :machines do
-      collection do
-        post :change_user
-      end
-    end
-    
-    member do
-      get :rooms
-      get :operations
-      get :old_operations
-      get :reload_machines
-    end
   end
   
   resources :directives do
@@ -67,19 +89,6 @@ Apposs::Application.routes.draw do
     get :upload_properties, :on => :collection
   end
 
-  resources :machines do
-    member do
-      put :change_env
-      put :reset
-      put :pause
-      put :interrupt
-      put :clean_all
-      put :reconnect
-      get :directives
-      get :old_directives
-    end
-  end
-  
   resources :operation_templates
   
   resources :operations do

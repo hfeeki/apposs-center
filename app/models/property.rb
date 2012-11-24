@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 
 # 特别说明：
 #   locked 字段用于区分系统设置的属性和用户设置的属性

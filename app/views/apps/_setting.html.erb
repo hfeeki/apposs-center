@@ -1,0 +1,18 @@
+      <div class="row-fluid">
+        <div class="span3">
+          <% if current_user.is_pe? current_app %>
+            <div class="well sidebar-nav">
+              <ul class="nav nav-list">
+                <li class="nav-header">应用设置</li>
+                <!--li><%=link_to '管理软件包', app_softwares_path(app), :remote => true %></li-->
+                <li><%=link_to '管理操作权限', app_permissions_path(app_id: app.id), :remote => true %></li>
+                <li><%=link_to '设定操作员', app_ops_path(app_id: app.id), :remote => true %></li>
+                <li><%=link_to '文件同步设置', apposs_file.file_entries_path(app_id: app.id), :remote => true %></li>
+              </ul>
+            </div>
+          <% end %>
+        </div><!--/.well -->
+        <div id="zone" class="span9">
+        </div> 
+      </div><!--/span-->
+

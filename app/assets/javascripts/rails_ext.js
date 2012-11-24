@@ -1,12 +1,12 @@
 //顶部显示瞬时消息
 function msg(msg,millisecond) {
-  $('#app').before('<div class="alert"><button class="close" data-dismiss="alert">x</button><pre>'
+  $('#main').before('<div class="alert"><button class="close" data-dismiss="alert">x</button><pre>'
       + msg + '</pre></div>');
 }
 
 function info(msg,millisecond) {
   var new_node = $('<div class="alert info" style="display:none"><button class="close" data-dismiss="alert">x</button><pre>'
-      + msg + '</pre></div>').insertBefore('#app');
+      + msg + '</pre></div>').insertBefore('#main');
   new_node.slideDown(500);
   setTimeout(
       function(){ 
@@ -17,6 +17,35 @@ function info(msg,millisecond) {
   );
 }
 
+function typeahead(expr) {
+  $(expr).typeahead({
+    minLength: 2,
+    source: function(query, process) {
+      $.get(
+        $(this)[0].$element[0].dataset.link,
+        {query: query},
+        function(json) {
+          process(json)
+        }
+      );
+    }
+  });
+}
+
+function editable(url,title){
+  $('.editable').editable({
+      'url': function(params){
+        $.ajax({
+          url: url, data: params, type: 'post', 
+          success: function(data,status,xhrs){
+            eval(data);          
+          }
+        });
+      },
+      'title': title,
+      'name': 'name'
+  });
+}
 $(function() {
   var application;
   $.application = application = {
@@ -69,11 +98,16 @@ $(function() {
       }
     },
 
+    //url以js为后缀的代码直接用eval运行
     refresh: function(node,url){
       $.ajax({
         url: url,
         success: function(data,status,xhrs){
-          node.html(data);
+          if(url.indexOf('.js', url.length - 3) == -1){
+            node.html(data);
+          }else{
+            eval(data);
+          }
         }
       });
     },
@@ -110,7 +144,7 @@ $(function() {
     return application.stopEverything(e);
   });
 
-  $('div[box-href],li[box-href]').live('refresh.application', function(e) {
+  $('tr[box-href], div[box-href],li[box-href]').live('refresh.application', function(e) {
     var base_node = $(e.currentTarget);
     application.refresh(
       base_node,
@@ -127,7 +161,7 @@ $(function() {
     }
     return application.stopEverything(e);
   });
-  
+
   //简化a标签组，用父节点的refer_to指明涉及的内容
   $('div[refer_to] a[select]').live('click', function(e) {
     var node = $(e.currentTarget);

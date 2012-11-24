@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
 #  # Include default devise modules. Others available are:
 #  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -5,7 +6,10 @@ class User < ActiveRecord::Base
 #         :recoverable, :rememberable, :trackable, :validatable
 #
 #  # Setup accessible (or protected) attributes for your model
-#  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessor :password, :password_confirmation
+  include Redis::Search
+
+  before_save :encrypt_password
 
   has_many :acls, :class_name => 'Stakeholder' do
     def [] name
@@ -15,10 +19,6 @@ class User < ActiveRecord::Base
   
   has_many :apps, :through => :acls, :source => :resource, :source_type => 'App'
 
-  # 用户作为管理员所负责的资源
-  has_many :managed_acls, :class_name => 'Stakeholder', :conditions => {:role => Role[Role::PE]}
-  has_many :managed_apps, :through => :managed_acls, :source => :resource, :source_type => 'App'
-
   has_many :roles,:through => :acls
   
   has_many :operations, :foreign_key => "operator_id"
@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
   
   has_many :directive_groups, :foreign_key => 'owner_id'
 
+  redis_search_index :title_field => :email, :prefix_index_enable => true
+  
   def load_directive_templates new_directive_templates
     new_directive_templates.each do |dt|
       directive_templates << dt.dup
@@ -34,9 +36,28 @@ class User < ActiveRecord::Base
     directive_templates
   end
 
-  def grant role, resource = nil
+  def encrypt_password
+    if self.password.present?
+      self.password_salt = BCrypt::Engine.generate_salt
+      self.encrypted_password = BCrypt::Engine.hash_secret(password, password_salt)
+      self.password = nil
+      self.password_confirmation = nil
+    end
+  end
+
+  def self.authenticate email, password
+    user = User.find_by_email(email)
+    if user && user.encrypted_password == BCrypt::Engine.hash_secret(password, user.password_salt)
+      user
+    else
+      nil
+    end
+
+  end
+
+  def grant role, resource = System.instance
+    return false if resource.nil?
     role = Role[role] if role.is_a?(String)
-    resource = System.instance if resource.nil?
     self.acls.create(
       :role_id => role.id, 
       :resource_type => resource.class.to_s, 

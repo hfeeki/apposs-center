@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'git'
 
 g = Git.open(File.expand_path('../..', __FILE__))

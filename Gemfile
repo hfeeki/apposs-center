@@ -1,15 +1,15 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.8'
 gem 'rake'
 
 gem 'apposs_simple_adapter', :git=>'git://github.com/taobao/apposs_simple_adapter.git'
-# gem 'apposs_simple_adapter', :path=>'/home/john/projects/github/apposs_simple_adapter' 
+# gem 'apposs_simple_adapter', :path=>'/home/john/projects/github/apposs/apposs_simple_adapter' 
 
 gem 'apposs_file', :git=>'git://github.com/taobao/apposs_file.git'
-# gem 'apposs_file', :path => '/home/john/projects/github/apposs_file'
+# gem 'apposs_file', :path => '/home/john/projects/github/apposs/apposs_file'
 
-gem 'brakeman', :git=>'git://github.com/fsword/brakeman.git'
+gem "bcrypt-ruby", :require => "bcrypt"
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -18,38 +18,20 @@ group :assets do
   gem 'coffee-rails', ' ~> 3.2.1'
   gem 'uglifier', ' >= 1.0.3'
 end
+gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 
 gem "rails-settings-cached"
 gem "seed-fu"
 # Use unicorn as the web server
-# gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-# gem 'ruby-debug'
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
-
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
 gem "arel"
 
-group :development,:test,:cucumber do
-  gem "pry"
-  gem "pry-doc"
-  gem "pry-nav"
+gem "pry"
+gem "pry-doc"
+gem "pry-nav"
+
+group :test,:cucumber do
   gem "guard"
   gem "guard-rspec"
   gem "rspec-rails"
@@ -67,15 +49,17 @@ group :development,:test,:cucumber do
   gem 'simplecov'
 
   gem "ruby-graphviz"
+  gem 'brakeman', :git=>'git://github.com/fsword/brakeman.git'
 end
 
-gem "simplecov"
+gem 'chinese_pinyin'
+gem 'rmmseg-cpp-huacnlee'
+gem 'redis-search', :git => 'git://github.com/fsword/redis-search.git'
 gem "inherited_resources_views"
 gem "inherited_resources"
 
 gem "jquery-rails"
 gem "jquery-ui-rails"
-gem 'rails3-jquery-autocomplete'
 gem 'acts-as-taggable-on'
 
 gem 'resque', '>=1.21', :require => 'resque/server'
@@ -86,5 +70,6 @@ gem 'therubyracer'
 gem "json"
 gem "state_machine"
 gem "acts_as_tree"
+
 gem "omniauth-google-oauth2"
-gem "will_paginate", "~> 3.0.pre4"
+

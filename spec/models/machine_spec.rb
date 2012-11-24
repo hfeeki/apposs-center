@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe Machine do
@@ -8,8 +8,7 @@ describe Machine do
 
   describe '状态变迁支持' do
     before :each do
-      @m = Machine.create :name => 'localhost', :port => 22, :room => Room.first
-      @m.host.should == 'localhost'
+      @m = Machine.create :name => 'localhost', :host => 'localhost', :port => 22, :room => Room.first
     end
     it '生成下发指令' do
       %w{pause reset interrupt reconnect clean_all}.each do |event|
@@ -83,7 +82,7 @@ describe Machine do
     end
 
     it "重新分配app时，允许之前的env不存在" do
-      @m.update_attribute :env_id, nil
+      @m.update_attributes env_id: nil
       @m.reassign 3
       @m.reload.env.name.should == 'online'
     end

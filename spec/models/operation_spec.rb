@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe Operation do
@@ -68,7 +68,7 @@ describe Operation do
   end
 
   it '创建operation超过限制次数' do
-    OperationRestriction.first.update_attribute :limit, 1
+    OperationRestriction.first.update_attributes limit: 1
     app = App.first
     user = User.first
     ot = app.operation_templates.find 1

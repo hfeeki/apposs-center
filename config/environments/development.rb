@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Apposs::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -30,6 +31,6 @@ Apposs::Application.configure do
   config.assets.debug = true
   
   config.serve_static_assets = true
-  config.base_url = 'http://localhost:3000'
+  config.base_url = "http://localhost:3000"
 end
 

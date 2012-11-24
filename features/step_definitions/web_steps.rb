@@ -1,4 +1,4 @@
-# coding:utf-8
+# -*- encoding : utf-8 -*-
 require 'watir-webdriver'
 
 When /(.+)通过浏览器登录系统/ do |user_name|

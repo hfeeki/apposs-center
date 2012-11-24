@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class Backend::SettingsController < Backend::BaseController
 
   def collection

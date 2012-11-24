@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class Machine < ActiveRecord::Base
 
   default_scope where("`machines`.`state` <> 'offlined' and `machines`.`state` <> 'offlined'").order(:name)
@@ -11,15 +11,14 @@ class Machine < ActiveRecord::Base
   has_many :directives
 
   validates_inclusion_of :port,:in => 1..65535,:message => "port必须在1到65535之间"
-  validates_presence_of :name
+  validates_presence_of :name,:host
 
   before_create :fulfill_default
+  before_destroy :check_lock, :clean_all # 清理这个机器时要中止正在执行的指令
+
 
   def fulfill_default
     self.app = self.env.app if (self.app.nil? && self.env)
-    if self.host.nil? or self.host.empty?
-      self.host = self.name
-    end
   end
 
   state_machine :state, :initial => :normal do
@@ -29,16 +28,21 @@ class Machine < ActiveRecord::Base
     event :offline do transition all => :offlined end
   end
 
-  def reassign app_id
-    return false if (app && app.locked?) #允许尚未分配app的machine进行重新设置
-    app = App.find app_id
+  # 重新分配machine的应用
+  def reassign other_app, force = false
+    return false if (app && app.locked? && !force) 
+    other_app = App.find other_app if other_app.is_a? Fixnum
     transaction do
       self.directives.each do |dd|
-        dd.update_attribute :operation_id, Operation::DEFAULT_ID
+        dd.update_attributes operation_id: Operation::DEFAULT_ID
       end
-      self.update_attribute(:app_id, app.id)
-      self.update_attribute(:env_id, app.envs[(self.env.try(:name)||'online').to_sym,true].id)
+      self.update_attribute(:app_id, other_app.id)
+      self.update_attribute(:env_id, other_app.envs[(self.env.try(:name)||'online').to_sym,true].id)
     end
+  end
+
+  def check_lock
+    raise 'locked machine cannot destroy' if locked?
   end
 
   def send_pause
@@ -61,6 +65,10 @@ class Machine < ActiveRecord::Base
   def send_clean_all
     clean_all
     inner_directive 'machine|clean_all'
+  end
+
+  def unlock
+    self.update_attributes locked: nil
   end
 
   def clean_all

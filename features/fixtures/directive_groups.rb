@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 default_group = DirectiveGroup.create(:name => 'default')
 
 DirectiveTemplate.new(

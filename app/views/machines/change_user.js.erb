@@ -1,9 +1,2 @@
-<% if @machine_ids.size == 0 %>
-  alert("请选择执行操作的机器");
-<% elsif @failed_machines.count > 0 %>
-  alert("更新不成功，下列机器尚未变更——
-  <%=escape_javascript( @failed_machines.select(&:name).join("\n") ) %>
-  ");
-<% else %>
-  info("更新成功");
-<% end %>
+info("<%='登录用户已改为 %s ，点击重连后将使用新用户执行后续指令！' % [@machine.user] %>");
+$("#machines_<%=@machine.id %>").trigger('refresh.application');

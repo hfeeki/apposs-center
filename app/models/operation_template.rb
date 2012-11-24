@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 
 # 操作模板，所有的运维操作都基于一个操作模板来执行
 class OperationTemplate < ActiveRecord::Base
@@ -161,9 +161,9 @@ class OperationTemplate < ActiveRecord::Base
         else
           pre_directive = pre_directives[machine_id]
           if pre_directive.pluggable? && (!directive.pluggable?)
-            directive.update_attribute :pre_id, pre_directive.id
+            directive.update_attributes pre_id: pre_directive.id
           else
-            pre_directive.update_attribute :next_id, directive.id
+            pre_directive.update_attributes next_id: directive.id
           end
         end
       end

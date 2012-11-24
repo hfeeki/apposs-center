@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe Directive do
@@ -122,8 +122,8 @@ describe Directive do
         DirectiveGroup['default'].directive_templates.first.gen_directive
       end
 
-      d1.update_attribute :next, d3
-      d2.update_attribute :next, d3
+      d1.update_attributes :next => d3
+      d2.update_attributes :next => d3
       d3.pres.count.should == 2
     end
 

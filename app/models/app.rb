@@ -1,27 +1,23 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class App < ActiveRecord::Base
-
   acts_as_tree
+
+  include Redis::Search
 
   scope :reals, where(:virtual => [nil,false], :state => 'running')
 
   # People
-  has_many :acls, :as => :resource, :class_name => 'Stakeholder'
-
+  has_many :acls, :as => :resource, :dependent => :destroy, :class_name => 'Stakeholder'
   has_many :operators, :through => :acls, :source => :user
-
   has_many :permissions
-
   has_many :release_packs
-
   has_many :softwares
-
   # Machine
-  has_many :machines
-
+  has_many :machines, :dependent => :destroy
   has_many :operation_templates
-  
   has_many :operations
+
+  redis_search_index :title_field => :name, :prefix_index_enable => true, :condition_fields => [:locked, :virtual]
 
   def ops
     User.where(
@@ -29,7 +25,7 @@ class App < ActiveRecord::Base
     )
   end
 
-  has_many :envs do
+  has_many :envs, :dependent => :destroy do
     def [] name, creatable=false
       if creatable
         where(:name => name).first || create(:name => name)
@@ -39,7 +35,7 @@ class App < ActiveRecord::Base
     end
   end
 
-  has_many :properties, :as => :resource do
+  has_many :properties, :dependent => :destroy, :as => :resource do
     def [] name1
       item = where(:name => name1).first
       item.value if item
@@ -87,7 +83,7 @@ class App < ActiveRecord::Base
     "#{Rails.root}/private/data/#{id}"
   end
 
-  def download_folder
+  def download_url
     "#{Rails.configuration.base_url}/data/#{id}"
   end
 

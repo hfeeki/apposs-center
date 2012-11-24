@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe User do
@@ -12,9 +12,9 @@ describe User do
     it '管理员角色' do
       @u.is_admin?.should be_false
       # 返回值表示保存成功
-      @u.grant(Role::Admin,nil).new_record?.should be_false
+      @u.grant(Role::Admin).new_record?.should be_false
       # 重复赋权会导致保存失败
-      @u.grant(Role::Admin,nil).new_record?.should be_true
+      @u.grant(Role::Admin).new_record?.should be_true
       @u.is_admin?.should be_true
     end
     
@@ -22,6 +22,8 @@ describe User do
       @u.is_pe?(App.find(1)).should be_true
       @u.ungrant(Role::PE, App.find(1)).should_not be_nil
       @u.is_pe?(App.find(1)).should be_false
+      # 不支持app为nil
+      @u.grant(Role::PE,nil).should be_false
       @u.grant(Role::PE, App.find(1)).new_record?.should be_false
       @u.is_pe?(App.find(1)).should be_true
     end
@@ -42,7 +44,7 @@ describe User do
     it "列举所负责的机器" do
       app = App.find 1
 
-      app.machines.first.update_attribute :env, app.envs[:pre,true]
+      app.machines.first.update_attributes :env => app.envs[:pre,true]
       @u.owned_machines(app).should == app.machines
       @u.ungrant(Role::PE, app)
       @u.owned_machines(app).count.should == 3

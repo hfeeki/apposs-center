@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class DirectivesController < ResourceController
   def body
     @directive = Directive.find params[:id]

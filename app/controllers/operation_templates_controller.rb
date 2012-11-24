@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 class OperationTemplatesController < ResourceController
 
   # 创建一个操作实例

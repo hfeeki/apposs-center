@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- encoding : utf-8 -*-
 When /^(.+)被任命为(.+)的(.+)$/ do |user, app_name, role_name|
   app = find_app(app_name)
   find_or_create_user(user).grant Role[role_name], app

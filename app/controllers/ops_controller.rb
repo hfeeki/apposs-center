@@ -1,14 +1,10 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class OpsController < ResourceController
 
   before_filter :authenticate_pe!
 
-  def index
-    @resources = current_app.ops
-  end
-
   def create
-    if user = User.find_by_email(params[:op][:email])
+    if current_app && (user = User.find_by_email(params[:op][:email]))
       user.grant Role::APPOPS, current_app
     else
       @error = '用户不存在'

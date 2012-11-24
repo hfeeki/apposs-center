@@ -1,4 +1,4 @@
-# coding:utf-8
+# -*- encoding : utf-8 -*-
 module BrowserHelpers
   def login user_name, url
     email = user_by_name(user_name).email
