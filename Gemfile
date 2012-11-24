@@ -27,11 +27,9 @@ gem "seed-fu"
 
 gem "arel"
 
-group :development,:test,:cucumber do
-  gem "pry"
-  gem "pry-doc"
-  gem "pry-nav"
-end
+gem "pry"
+gem "pry-doc"
+gem "pry-nav"
 
 group :test,:cucumber do
   gem "guard"
@@ -51,11 +49,7 @@ group :test,:cucumber do
   gem 'simplecov'
 
   gem "ruby-graphviz"
-end
-
-group :production do
   gem 'brakeman', :git=>'git://github.com/fsword/brakeman.git'
-  gem 'unicorn'
 end
 
 gem 'chinese_pinyin'
@@ -76,5 +70,3 @@ gem 'therubyracer'
 gem "json"
 gem "state_machine"
 gem "acts_as_tree"
-#gem "omniauth-google-oauth2"
-#gem "will_paginate", "~> 3.0.pre4"
