@@ -103,6 +103,7 @@ $(function() {
       $.ajax({
         url: url,
         success: function(data,status,xhrs){
+          $('#loading').hide();
           if(url.indexOf('.js', url.length - 3) == -1){
             node.html(data);
           }else{
@@ -134,7 +135,14 @@ $(function() {
     });
   }
   
-  
+  $(document).on('ajax:before','a[data-remote]', function(e) {
+    $('#loading').show();
+  });
+
+  $(document).on('ajax:complete','a[data-remote]', function(e) {
+    $('#loading').hide();
+  });
+
   $('div[box-href],li[box-href]').live('load_toggle.application', function(e) {
     var base_node = $(e.currentTarget);
     application.load_toggle(

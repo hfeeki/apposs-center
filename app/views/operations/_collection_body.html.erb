@@ -1,0 +1,6 @@
+  <% collection.each do |operation|%>
+    <div class="well" style="background-color:#bbb" box-href="<%=operation_path(operation.id) %>">
+      <%=render 'operations/item', :resource => operation %>
+    </div>
+  <% end %>
+

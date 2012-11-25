@@ -1,30 +1,22 @@
 <div id="operations">
-  <div class="well">
-    <h5 style="text-align:center">
-      <% if defined? history %>
-        <%=link_to '操作列表', operations_app_path(parent.id), :remote => true, :style => 'color:grey' %> | <%=link_to '历史操作(最近一个月)', 
-          old_operations_app_path(parent.id), 
-          :remote => true,
-          :style => 'color:black' %>
-      <% else %>
-        <%=link_to '操作列表', 
-            operations_app_path(parent.id), 
-            :remote => true,
-            :style => 'color:black' %> | <%=link_to '历史操作(最近一个月)', old_operations_app_path(parent.id), :remote => true, :style => 'color:grey' %>
-      <% end %>
-    </h5>
+  <ul class="nav nav-pills" style="margin:4px 0">
+    <li class="history pull-right">
+      <%=link_to '历史操作(最近一个月)', old_operations_app_path(parent.id), :remote => true %>
+    </li>
+    <li class="active current pull-right">
+      <%=link_to '操作列表', operations_app_path(parent.id), :remote => true %> 
+    </li>
+  </ul>
+  <div>
+    <%=begin
+         if defined? history 
+           collection = (collection||parent.operations.without_state(:done)).order('created_at desc')
+         else
+           collection = (collection||parent.operations.without_state(:done))
+         end
+         render 'operations/collection_body', :collection => collection
+       end
+     %>
   </div>
-  <%
-   if defined? history 
-     collection = (collection||parent.operations.without_state(:done)).order('created_at desc')
-   else
-     collection = (collection||parent.operations.without_state(:done))
-   end
-  %>
-  <% collection.each do |operation|%>
-    <div class="well" style="background-color:#bbb" box-href="<%=operation_path(operation.id) %>">
-      <%=render 'operations/item', :resource => operation %>
-    </div>
-  <% end %>
 </div>
 

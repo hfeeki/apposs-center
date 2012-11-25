@@ -1,13 +1,12 @@
       <div class="row-fluid">
         <div class="span3">
           <div class="well">
-            <p><b>配置</b>
-              <% current_app.envs.each do |env| %>
-                <%=link_to edit_app_env_path(current_app,env), :class=> 'btn', :target => 'blank' do %>
-                  <i class="icon-edit"></i> <%=env.name %>
-                <% end %>
+            <b>编辑执行参数：</b>
+            <% current_app.envs.each do |env| %>
+              <%=link_to edit_app_env_path(current_app,env), :class=> '', :target => 'blank' do %>
+                <i class="icon-edit"></i> <%=env.name %>
               <% end %>
-            </p>
+            <% end %>
           </div>
           <div class="well-large sidebar-nav panel">
             <legend style="font-size:14px">操作面板</legend>

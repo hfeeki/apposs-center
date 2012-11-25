@@ -39,7 +39,7 @@ class AppsController < BaseController
     
   def operations
     @app = current_app
-    @collection = @app.operations.without_state(:done)
+    @collection = current_app.operations.without_state(:done)
     respond_to do |format|
       format.js
     end
@@ -47,7 +47,7 @@ class AppsController < BaseController
 
   def old_operations
     @app = current_app
-    @collection = @app.operations.where(:state => :done)
+    @collection = current_app.operations.where(:state => :done).order('created_at desc')
     respond_to do |format|
       format.js
     end
