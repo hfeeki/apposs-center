@@ -6,7 +6,7 @@ PID=tmp/resque.pid
 
 case "$1" in
   start)
-        cd $APP_PATH && PIDFILE=$PID BACKGROUND=true INTERVAL=2 QUEUE=* rake resque:work
+        cd $APP_PATH && PIDFILE=$PID BACKGROUND=true INTERVAL=2 QUEUE=* ./bin/rake resque:work
         ;;
   stop)
         kill `cat $PID`
