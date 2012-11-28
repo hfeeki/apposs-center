@@ -2,22 +2,29 @@
 
 APP_PATH=${APP_PATH:-.}
 SCRIPT_NAME='script/resque'
-PID=tmp/resque.pid
+PID=$APP_PATH/tmp/resque.pid
+
+sig () {
+  test -s "$PID"
+}
 
 case "$1" in
   start)
-        cd $APP_PATH && PIDFILE=$PID BACKGROUND=true INTERVAL=2 QUEUE=* ./bin/rake resque:work
+    cd $APP_PATH
+    sig || PIDFILE=$PID BACKGROUND=true INTERVAL=2 QUEUE=* ./bin/rake resque:work
         ;;
   stop)
-        kill `cat $PID`
-        sleep 2
-        ;;
+    kill `cat $PID`
+    sleep 2
+    rm -rf $PID
+    ;;
   force-stop)
-        kill -9 `cat $PID`
-        ;;
+    kill -9 `cat $PID`
+    rm -rf $PID
+    ;;
   *)
-        echo "Usage: $SCRIPT_NAME {start|stop|restart}" >&2
-        exit 3
-        ;;
+    echo "Usage: $SCRIPT_NAME {start|stop|restart}" >&2
+    exit 3
+    ;;
 esac
 
