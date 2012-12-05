@@ -37,6 +37,8 @@ class ServiceController < ActionController::Base
       else
         machine = app.machines.find params[:machine_id]
         if machine
+          # destroy whatever it locked
+          machine.locked = false
           machine.destroy
           respond_with machine
         else
