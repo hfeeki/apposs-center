@@ -2,7 +2,7 @@
 # 目前仅支持 application/json 
 class ServiceController < ActionController::Base
 
-  WHITE_LIST=['md5sum','curl','rpm -qa','ulimit','du']
+  WHITE_LIST=[/^md5sum/, /^curl/, /^rpm -qa/, /^ulimit/, /^du/]
   respond_to :json
 
   before_filter :auth
@@ -62,12 +62,14 @@ class ServiceController < ActionController::Base
             head :bad_request
           end
         elsif @current_user.is_a? Reader
-          if WHITE_LIST.select{|label| params[:command].start_with?(label)}.size > 0
-            directive = m.make_directive(params[:command])
-            respond_with directive
-          else
-            head :bad_request
+          WHITE_LIST.each do |rr|
+            if rr.match(params[:command])
+              directive = m.make_directive(params[:command])
+              respond_with directive
+              return
+            end
           end
+          head :bad_request
         end
       else
         head :unauthorized
