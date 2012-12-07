@@ -2,7 +2,7 @@
 # 目前仅支持 application/json 
 class ServiceController < ActionController::Base
 
-  WHITE_LIST=[/^md5sum/, /^curl/, /^rpm -qa/, /^ulimit/, /^du/]
+  WHITE_LIST=[/^md5sum/, /^curl/, /^rpm -qa/, /^ulimit/, /^du/, /^cat [-_0-9A-Za-z\/].+\/[-_A-Za-z]\.real\.properties$/ ]
   respond_to :json
 
   before_filter :auth
