@@ -1,9 +1,8 @@
                     <td>
-                      <label class="inline" title="<%="#{machine.name} [#{machine.host} #{machine.user}]" %>">
+                      <label class="checkbox text-<%=machine.normal? ? :success : :error %>"
+                        title="<%="#{machine.name} [#{machine.host} #{machine.user}]" %>">
                         <input type="checkbox" name="machine_ids[]" value="<%=machine.id %>" />
-                        <span style="color:<%=machine.normal? ? :green : :red %>">
-                          <%=machine.name[0..16] %>
-                        </span>
+                        <%=machine.name[0..16] %>
                       </label>
                     </td>
                     <td>
