@@ -1,17 +1,6 @@
 # -*- encoding : utf-8 -*-
-class ApiController < ApplicationController
+class ApiController < ActionController::Base
   before_filter :check_agent
-
-  def check_agent
-    Rails.logger.info "api access: #{remote_addr}"
-    agent = Agent.find_by_ipaddr remote_addr
-    
-    if agent.nil? && !['cucumber','test'].include?(Rails.env)
-      render :text => '', :status => 404
-    else
-      agent.try :touch # 在测试环境下 agent 可能为空
-    end
-  end
 
   def commands
     room = Room.where('binary name = ?', [ params[:room_name] ]).first
@@ -84,6 +73,17 @@ class ApiController < ApplicationController
   end
 
   private
+  def check_agent
+    Rails.logger.info "api access: #{remote_addr}"
+    agent = Agent.find_by_ipaddr remote_addr
+    
+    if agent.nil? && !['cucumber','test'].include?(Rails.env)
+      render :text => '', :status => 404
+    else
+      agent.try :touch # 在测试环境下 agent 可能为空
+    end
+  end
+
   def remote_addr
     @remote_addr ||= (env['HTTP_X_FORWARDED_FOR'] || 
                       env['HTTP_X_REAL_IP'] || 
