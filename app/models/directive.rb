@@ -105,6 +105,7 @@ class Directive < ActiveRecord::Base
     if pluggable?
       download
       invoke
+      Rails.logger.info "exec command: #{command}"
       exec_command command
     end
   end
@@ -145,19 +146,10 @@ class Directive < ActiveRecord::Base
 
   def exec_command cmd
     Bundler.with_clean_env do
-      Rails.logger.info "exec command: #{cmd}"
-      IO.popen('-') do |io|
-        if io
-          # parent
-          io.gets
-        else
-          # child
-          body = `#{cmd}`
-          result = $?.exitstatus
-          self.callback result==0,body
-          Rails.logger.info "exec result: #{cmd} - #{result}"
-        end
-      end
+      body = `#{cmd} 2>&1`
+      result = $?.exitstatus
+      Rails.logger.info "exec result: #{body} - #{result}"
+      self.callback result==0,body
     end
   end
 

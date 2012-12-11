@@ -9,7 +9,7 @@ stderr_path "log/unicorn.log"
 stdout_path "log/unicorn.log"
 
 if rack_env=='production'
-  listen "/tmp/unicorn.apposs.sock"
+  listen "/tmp/apposs.sock"
 else
   listen 3000, :tcp_nopush => true
 end

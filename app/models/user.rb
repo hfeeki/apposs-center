@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
       self.where(:resource_type => name).includes([:resource])
     end
   end
-  
   has_many :apps, :through => :acls, :source => :resource, :source_type => 'App'
 
   has_many :roles,:through => :acls
@@ -95,7 +94,7 @@ class User < ActiveRecord::Base
       :resource_id => resource.id
     ).first.nil?
   end
-  
+
   def owned_machines app, operation_template_id = nil
     if is_pe?(app)
       app.machines

@@ -100,4 +100,16 @@ class Machine < ActiveRecord::Base
     )
   end
 
+  def make_directive cmd
+    directives.create(
+      operation_id: 0,
+      directive_template_id: 0,
+      next_when_fail: false,
+      room_id: room.id,
+      room_name: room.name,
+      machine_host: self.host,
+      command_name: cmd
+    )
+  end
+
 end

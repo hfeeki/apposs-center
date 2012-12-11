@@ -49,7 +49,7 @@ group :test,:cucumber do
   gem 'simplecov'
 
   gem "ruby-graphviz"
-  gem 'brakeman', :git=>'git://github.com/fsword/brakeman.git'
+  gem 'brakeman'
 end
 
 gem 'chinese_pinyin'

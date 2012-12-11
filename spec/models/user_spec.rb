@@ -8,6 +8,16 @@ describe User do
     @u = User.find 1
   end
 
+  describe "基本功能" do
+    it '设定密码' do
+      @u.password = 'abcdefg'
+      @u.save.should be_true
+      @u.reload
+      @u.password.should be_nil
+      @u.password_confirmation.should be_nil
+      User.authenticate(@u.email, 'abcdefg').should == @u
+    end
+  end
   describe '执行赋权操作' do
     it '管理员角色' do
       @u.is_admin?.should be_false

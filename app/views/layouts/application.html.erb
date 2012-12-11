@@ -58,7 +58,7 @@
                   </li>
                 <% } %>
               </ul>
-              <div class="span2 pull-right" style="margin:4px">
+              <div class="pull-right" style="margin:4px 0">
                 <i class="icon-user"></i> 欢迎 <%= current_user.email.split('@')[0] %>
                 <%= link_to "管理我的指令", directive_templates_path, :remote => true %>
               </div>
