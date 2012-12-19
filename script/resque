@@ -11,7 +11,7 @@ sig () {
 case "$1" in
   start)
     cd $APP_PATH
-    sig || PIDFILE=$PID BACKGROUND=true INTERVAL=2 QUEUE=* ./bin/rake resque:work
+    sig || PIDFILE=$PID BACKGROUND=true INTERVAL=0.1 QUEUE=* ./bin/rake resque:work
         ;;
   stop)
     kill `cat $PID`
