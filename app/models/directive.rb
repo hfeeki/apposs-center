@@ -107,6 +107,11 @@ class Directive < ActiveRecord::Base
       invoke
       Rails.logger.info "exec command: #{command}"
       exec_command command
+    else
+      Rails.logger.info "try to enable next: #{self.id}"
+      if self.next && !self.next.pluggable?
+        self.next.enable
+      end
     end
   end
 
