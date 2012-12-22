@@ -27,7 +27,10 @@ namespace :install do
   desc "pick up the data your want to load"
   task :data => :config do
     puts "生成secret"
-    system 'rake secret'
+    setup_file 'config/initializers/secret_token.rb' do |content|
+      content << "'" << `rake secret`.gsub(/(\r|\n)/,'') << "'"
+    end
+
     puts "生成pluglets"
     setup_file 'config/pluglets.yml'
     puts "生成初始数据"
@@ -44,7 +47,7 @@ namespace :install do
       override = while answer=$stdin.readline.chop
                    if answer=~/^[yY](es)?/
                      break true
-                   elsif answer=~/^[nN]o?/
+                   elsif answer=~/^[nN]o?/ || answer.blank?
                      break false
                    end
                    print "文件已存在[ #{filename} ]，是否覆盖？[y/N]"
